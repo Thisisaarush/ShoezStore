@@ -12,9 +12,11 @@ import cart from "@icons/cart.svg";
 
 // components
 import { Menu } from "@components/Menu";
+import { Search } from "@components/Search";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   return (
     <nav className="relative flex w-screen flex-col items-center justify-center">
@@ -30,6 +32,17 @@ export const Navbar: React.FC = () => {
             <Menu setIsMenuOpen={setIsMenuOpen} />
           </motion.div>
         ) : null}
+        {isSearchOpen ? (
+          <motion.div
+            key="search"
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            className="absolute top-0 z-10 h-screen w-screen"
+          >
+            <Search setIsSearchOpen={setIsSearchOpen} />
+          </motion.div>
+        ) : null}
       </AnimatePresence>
       <div className="flex w-full max-w-5xl content-center items-center justify-between border-b sm:border-none">
         <div
@@ -38,7 +51,10 @@ export const Navbar: React.FC = () => {
         >
           <Image src={menu} alt="menu" />
         </div>
-        <div className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex">
+        <div
+          onClick={() => setIsSearchOpen(true)}
+          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex"
+        >
           <Image src={search} alt="search" />
         </div>
         <div className="relative flex h-[50px] flex-auto cursor-pointer items-center justify-center font-orbitron font-medium uppercase tracking-wide transition-all duration-300 ease-in hover:tracking-widest hover:text-white hover:before:absolute hover:before:inset-0 hover:before:bg-black">

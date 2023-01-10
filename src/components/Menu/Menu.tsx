@@ -45,7 +45,7 @@ export const Menu = (props: {
 
       <span
         onClick={() => setIsMenuOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full"
+        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-20"
       />
     </menu>
   );
