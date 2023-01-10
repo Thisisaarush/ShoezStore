@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,8 +24,8 @@ export const Navbar: React.FC = () => {
             key="menu"
             initial={{ y: "-100%" }}
             animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
-            className="absolute inset-0 z-10 h-max w-max"
+            exit={{ y: "-100%" }}
+            className="absolute top-0 z-10 h-screen w-screen"
           >
             <Menu setIsMenuOpen={setIsMenuOpen} />
           </motion.div>

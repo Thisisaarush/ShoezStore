@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
@@ -10,7 +12,7 @@ export const Menu = (props: {
   const { setIsMenuOpen } = props;
 
   return (
-    <menu className="relative flex h-max w-screen flex-col items-center bg-white shadow-md">
+    <menu className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
         <div>Shoez store</div>
         <div
@@ -21,7 +23,7 @@ export const Menu = (props: {
         </div>
       </div>
 
-      <div className="z-20 flex w-screen items-center justify-center border-t">
+      <div className="z-20 flex w-full items-center justify-center border-t">
         <ol className="relative flex w-full max-w-3xl flex-col gap-6 overflow-hidden py-6 px-8 capitalize sm:text-lg">
           <li className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12 before:bg-yellow-300 sm:hidden">
             <span className="relative">Just Arrived</span>
@@ -43,7 +45,7 @@ export const Menu = (props: {
 
       <span
         onClick={() => setIsMenuOpen(false)}
-        className="absolute top-0 left-0 -z-20 h-screen w-screen"
+        className="absolute inset-0 -z-20 h-screen w-full"
       />
     </menu>
   );
