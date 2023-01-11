@@ -1,17 +1,19 @@
-"use client";
 import React from "react";
 
-export const SearchBar = () => {
+export const SearchBar = (props: { classes: string; autoFocus?: boolean }) => {
+  const { classes, autoFocus = false } = props;
+
   return (
-    <form action="/search" method="get" className="ml-28 w-96">
+    <form action="/search" method="get" className={classes}>
+      <span className="p-2">🔍</span>
       <input
         type="search"
         name="q"
         id="searchBar"
         placeholder="Search Here..."
-        className="w-full border border-gray-300 p-2"
+        autoFocus={autoFocus}
+        className="w-full p-2 outline-none"
       />
     </form>
   );
 };
- 

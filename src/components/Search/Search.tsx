@@ -11,7 +11,10 @@ export const Search = (props: {
         <div className="font-orbitron font-medium uppercase tracking-wider sm:text-xl">
           Shoez store
         </div>
-        <SearchBar />
+        <SearchBar
+          classes="ml-28 flex w-96 items-start justify-start rounded-md border p-1"
+          autoFocus={true}
+        />
       </div>
 
       <div className="z-20 flex w-full items-center justify-center border-t">

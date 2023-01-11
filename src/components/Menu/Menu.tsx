@@ -5,6 +5,7 @@ import Image from "next/image";
 
 // images
 import shoe from "@images/shoe.svg";
+import { SearchBar } from "@components/Search";
 
 export const Menu = (props: {
   setIsMenuOpen: (isMenuOpen: boolean) => void;
@@ -25,6 +26,7 @@ export const Menu = (props: {
 
       <div className="z-20 flex w-full items-center justify-center border-t">
         <ol className="relative flex w-full max-w-3xl flex-col gap-6 overflow-hidden py-6 px-8 capitalize sm:text-lg">
+          <SearchBar classes="flex items-start justify-start rounded-md border p-1 sm:hidden" />
           <li className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12 before:bg-yellow-300 sm:hidden">
             <span className="relative">Just Arrived</span>
           </li>
