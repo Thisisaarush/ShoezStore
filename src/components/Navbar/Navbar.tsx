@@ -13,10 +13,15 @@ import cart from "@icons/cart.svg";
 // components
 import { Menu } from "@components/Menu";
 import { Search } from "@components/Search";
+import { Profile } from "@components/Profile";
+
+// utils
+import { BounceAnimation } from "@utils/index";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
 
   return (
     <nav className="relative flex w-screen flex-col items-center justify-center">
@@ -24,23 +29,31 @@ export const Navbar: React.FC = () => {
         {isMenuOpen ? (
           <motion.div
             key="menu"
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
             className="absolute top-0 z-10 h-screen w-screen"
+            {...BounceAnimation}
           >
-            <Menu setIsMenuOpen={setIsMenuOpen} />
+            <Menu
+              setIsMenuOpen={setIsMenuOpen}
+              setIsProfileOpen={setIsProfileOpen}
+            />
           </motion.div>
         ) : null}
         {isSearchOpen ? (
           <motion.div
             key="search"
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
             className="absolute top-0 z-10 h-screen w-screen"
+            {...BounceAnimation}
           >
             <Search setIsSearchOpen={setIsSearchOpen} />
+          </motion.div>
+        ) : null}
+        {isProfileOpen ? (
+          <motion.div
+            key="profile"
+            className="absolute top-0 z-10 h-screen w-screen"
+            {...BounceAnimation}
+          >
+            <Profile setIsProfileOpen={setIsProfileOpen} />
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -60,7 +73,10 @@ export const Navbar: React.FC = () => {
         <div className="relative flex h-[50px] flex-auto cursor-pointer items-center justify-center font-orbitron font-medium uppercase tracking-wide transition-all duration-300 ease-in hover:tracking-widest hover:text-white hover:before:absolute hover:before:inset-0 hover:before:bg-black">
           <span className="relative">shoez store</span>
         </div>
-        <div className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex">
+        <div
+          onClick={() => setIsProfileOpen(true)}
+          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex"
+        >
           <Image src={profile} alt="profile" />
         </div>
         <div className="flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white">

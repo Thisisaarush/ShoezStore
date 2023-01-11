@@ -9,8 +9,9 @@ import { SearchBar } from "@components/Search";
 
 export const Menu = (props: {
   setIsMenuOpen: (isMenuOpen: boolean) => void;
+  setIsProfileOpen: (isProfileOpen: boolean) => void;
 }) => {
-  const { setIsMenuOpen } = props;
+  const { setIsMenuOpen, setIsProfileOpen } = props;
 
   return (
     <menu className="relative flex w-full flex-col items-center bg-white shadow-md">
@@ -33,10 +34,19 @@ export const Menu = (props: {
           <li className="relative w-[150px] cursor-pointer p-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 sm:hidden">
             <span className="relative">Sale</span>
           </li>
-          <li className="cursor-pointer p-2">favorites &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">women &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">men &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">kids &#8690;</li>
+          <li
+            onClick={() => {
+              setIsProfileOpen(true);
+              setIsMenuOpen(false);
+            }}
+            className="cursor-pointer p-2 sm:hidden"
+          >
+            👤 profile &#8690;
+          </li>
+          <li className="cursor-pointer p-2">❤️ favorites &#8690;</li>
+          <li className="cursor-pointer p-2 sm:hidden">👧 women &#8690;</li>
+          <li className="cursor-pointer p-2 sm:hidden">👦 men &#8690;</li>
+          <li className="cursor-pointer p-2 sm:hidden">👶 kids &#8690;</li>
           <Image
             src={shoe}
             alt="shoe"
