@@ -21,8 +21,10 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
+      "@components": ["src/components/index.ts"],
       "@utils/*": ["src/utils/*"],
+      "@configs/*": ["src/configs/*"],
+      "@types": ["src/types/index.ts"],
       "@icons/*": ["public/icons/*"],
       "@images/*": ["public/images/*"]
     }

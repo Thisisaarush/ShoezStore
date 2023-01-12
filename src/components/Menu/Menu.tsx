@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // images
 import shoe from "@images/shoe.svg";
-import { SearchBar } from "@components/Search";
+import { SearchBar } from "@components";
 
 export const Menu = (props: {
   setIsMenuOpen: (isMenuOpen: boolean) => void;

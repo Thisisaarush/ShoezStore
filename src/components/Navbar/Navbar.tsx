@@ -11,12 +11,10 @@ import profile from "@icons/profile.svg";
 import cart from "@icons/cart.svg";
 
 // components
-import { Menu } from "@components/Menu";
-import { Search } from "@components/Search";
-import { Profile } from "@components/Profile";
+import { Menu, Search, Profile } from "@components";
 
 // utils
-import { BounceAnimation } from "@utils/index";
+import { BounceAnimation } from "@utils/animations";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
