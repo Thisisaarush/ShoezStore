@@ -14,7 +14,7 @@ import cart from "@icons/cart.svg";
 import { Menu, Search, Profile } from "@components";
 
 // utils
-import { BounceAnimation } from "@utils/animations";
+import { SlideDownAnimation } from "@utils/animations";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
           <motion.div
             key="menu"
             className="absolute top-0 z-10 h-screen w-screen"
-            {...BounceAnimation}
+            {...SlideDownAnimation}
           >
             <Menu
               setIsMenuOpen={setIsMenuOpen}
@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
           <motion.div
             key="search"
             className="absolute top-0 z-10 h-screen w-screen"
-            {...BounceAnimation}
+            {...SlideDownAnimation}
           >
             <Search setIsSearchOpen={setIsSearchOpen} />
           </motion.div>
@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
           <motion.div
             key="profile"
             className="absolute top-0 z-10 h-screen w-screen"
-            {...BounceAnimation}
+            {...SlideDownAnimation}
           >
             <Profile setIsProfileOpen={setIsProfileOpen} />
           </motion.div>
@@ -81,7 +81,8 @@ export const Navbar: React.FC = () => {
           <Image src={cart} alt="cart" />
         </div>
       </div>
-      <div className="hidden w-full items-center justify-center border-t py-4 text-sm sm:flex">
+
+      <div className="hidden w-full items-center justify-center border-t py-8 text-sm sm:flex">
         <div className="relative mx-4 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300">
           <span className="relative">Just Arrived</span>
         </div>
