@@ -1,10 +1,11 @@
 import React from "react";
 
-export const Profile = (props: {
+// types
+type TProfile = (props: {
   setIsProfileOpen: (isProfileOpen: boolean) => void;
-}) => {
-  const { setIsProfileOpen } = props;
+}) => JSX.Element;
 
+export const Profile: TProfile = ({ setIsProfileOpen }) => {
   return (
     <div className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
@@ -33,7 +34,7 @@ export const Profile = (props: {
 
       <span
         onClick={() => setIsProfileOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-20"
+        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-30"
       />
     </div>
   );

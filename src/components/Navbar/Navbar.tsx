@@ -55,6 +55,7 @@ export const Navbar: React.FC = () => {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
       <div className="flex w-full max-w-5xl content-center items-center justify-between border-b sm:border-none">
         <div
           onClick={() => setIsMenuOpen(true)}

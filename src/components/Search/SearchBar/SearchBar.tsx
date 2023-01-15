@@ -1,8 +1,12 @@
 import React from "react";
 
-export const SearchBar = (props: { classes: string; autoFocus?: boolean }) => {
-  const { classes, autoFocus = false } = props;
+// types
+type TSearchBar = (props: {
+  classes: string;
+  autoFocus?: boolean;
+}) => JSX.Element;
 
+export const SearchBar: TSearchBar = ({ classes, autoFocus = false }) => {
   return (
     <form action="/search" method="get" className={classes}>
       <span className="p-2">🔍</span>

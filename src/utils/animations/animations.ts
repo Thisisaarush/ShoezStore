@@ -6,12 +6,12 @@ export const SlideDownAnimation = {
   transition: { ease: "easeOut", duration: 0.3 },
 };
 
-export const SlideRightAnimation = {
-  initial: { x: "0%" },
-  animate: { x: 0 },
-  exit: { x: "100%" },
-  transition: {
-    ease: "easeInOut",
-    duration: 1,
+export const CarouselAnimation = {
+  initial: (direction: number) => {
+    return { x: direction > 0 ? "100%" : "-100%", opacity: 0 };
+  },
+  animate: { x: 0, opacity: 1 },
+  exit: (direction: number) => {
+    return { x: direction < 0 ? "100%" : "-100%", opacity: 0 };
   },
 };

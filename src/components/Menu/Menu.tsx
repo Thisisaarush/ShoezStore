@@ -7,12 +7,13 @@ import Image from "next/image";
 import shoe from "@images/shoe.svg";
 import { SearchBar } from "@components";
 
-export const Menu = (props: {
+// types
+type TMenu = (props: {
   setIsMenuOpen: (isMenuOpen: boolean) => void;
   setIsProfileOpen: (isProfileOpen: boolean) => void;
-}) => {
-  const { setIsMenuOpen, setIsProfileOpen } = props;
+}) => JSX.Element;
 
+export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
   return (
     <menu className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
@@ -57,7 +58,7 @@ export const Menu = (props: {
 
       <span
         onClick={() => setIsMenuOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-20"
+        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-30"
       />
     </menu>
   );
