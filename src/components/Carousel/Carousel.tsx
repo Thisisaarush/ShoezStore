@@ -40,10 +40,9 @@ export const Carousel = () => {
   };
 
   // handling active dots
-  const handleActive = (index: number): boolean => {
-    let isActive: boolean = false;
-    if (index === heroImageNumber) isActive = true;
-    return isActive;
+  const isActive = (index: number): boolean => {
+    if (index === heroImageNumber) return true;
+    return false;
   };
 
   // loading & error states from graphql
@@ -115,7 +114,7 @@ export const Carousel = () => {
               setHeroImage([idx, dir]);
             }}
             className={`h-[10px] w-[10px] cursor-pointer rounded-full bg-gray-300 hover:opacity-100 sm:h-[16px] sm:w-[16px] ${
-              handleActive(idx) ? "opacity-100" : "opacity-30"
+              isActive(idx) ? "opacity-100" : "opacity-30"
             }`}
           />
         ))}
