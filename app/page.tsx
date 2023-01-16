@@ -7,7 +7,15 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "@utils/graphql";
 
 //components
-import { Navbar, Carousel } from "@components";
+import {
+  Navbar,
+  Carousel,
+  Recommended,
+  Giftings,
+  Trending,
+  ShoppingFor,
+  Footer,
+} from "@components";
 
 export default function Home() {
   return (
@@ -15,6 +23,11 @@ export default function Home() {
       <ApolloProvider client={client}>
         <Navbar />
         <Carousel />
+        <Recommended />
+        <Giftings />
+        <Trending />
+        <ShoppingFor />
+        <Footer />
       </ApolloProvider>
     </main>
   );

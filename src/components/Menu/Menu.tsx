@@ -58,7 +58,7 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
 
       <span
         onClick={() => setIsMenuOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black to-transparent opacity-30"
+        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black opacity-30"
       />
     </menu>
   );

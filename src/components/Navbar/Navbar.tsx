@@ -83,20 +83,20 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden w-full items-center justify-center border-t py-8 text-sm sm:flex">
-        <div className="relative mx-4 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300">
+      <div className="hidden w-full items-center justify-center border-t py-8 text-sm sm:flex md:text-base">
+        <div className="relative mx-4 hover:before:bg-yellow-400 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300">
           <span className="relative">Just Arrived</span>
         </div>
-        <div className="mx-4 cursor-pointer px-2 capitalize  text-gray-500">
+        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize  text-gray-500">
           Men
         </div>
-        <div className="mx-4 cursor-pointer px-2 capitalize text-gray-500">
+        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize text-gray-500">
           Women
         </div>
-        <div className="mx-4 cursor-pointer px-2 capitalize text-gray-500">
+        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize text-gray-500">
           Kids
         </div>
-        <div className="relative mx-4 cursor-pointer px-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500">
+        <div className="relative mx-4 hover:before:bg-red-600 cursor-pointer px-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500">
           <span className="relative">Sale</span>
         </div>
       </div>

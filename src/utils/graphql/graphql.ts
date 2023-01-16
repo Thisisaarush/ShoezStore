@@ -17,3 +17,25 @@ export const GET_HERO_SLIDES = gql`
     }
   }
 `;
+
+export const GET_RECOMMENDED = gql`
+  query GetRecommended {
+    recommended {
+      name
+      price
+      sizes
+      uri
+    }
+  }
+`;
+
+export const GET_TRENDING = gql`
+  query GetTrending {
+    trending {
+      name
+      price
+      sizes
+      uri
+    }
+  }
+`;
