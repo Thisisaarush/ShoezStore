@@ -6,7 +6,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// query herosliders
+// queries
 export const GET_HERO_SLIDES = gql`
   query GetHeroslides {
     heroSlider {
@@ -35,6 +35,21 @@ export const GET_TRENDING = gql`
       name
       price
       sizes
+      uri
+    }
+  }
+`;
+
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    category {
+      brand
+      category
+      color
+      name
+      price
+      sizes
+      tag
       uri
     }
   }

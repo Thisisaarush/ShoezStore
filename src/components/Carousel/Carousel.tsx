@@ -16,6 +16,9 @@ import { CarouselAnimation } from "@utils/animations";
 // components
 import { Loading, Error } from "@components";
 
+// types
+import { TProduct } from "@types";
+
 //utils
 import { getImageAvgColor } from "@utils/getImageAvgColor";
 
@@ -87,14 +90,15 @@ export const Carousel = () => {
               ease: "easeInOut",
               duration: 1,
             }}
-            className="flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
+            className="relative flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
           >
             <Image
               src={data?.heroSlider[heroImageNumber]?.uri}
               alt="Carousel"
               fill={true}
               style={{ objectFit: "cover" }}
-              className='hover:opacity-90'
+              className="hover:opacity-90"
+              sizes="(max-width: 1024px) 100vw"
             />
           </motion.div>
         </AnimatePresence>
@@ -117,8 +121,9 @@ export const Carousel = () => {
         />
 
         <ul className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 p-1 sm:bottom-6">
-          {data?.heroSlider.map((slide: any, idx: number) => (
+          {data?.heroSlider.map((slide: TProduct, idx: number) => (
             <li
+              key={slide?.uri}
               onClick={() => {
                 const dir = idx > prevIdx ? 1 : -1;
                 setHeroImage([idx, dir]);

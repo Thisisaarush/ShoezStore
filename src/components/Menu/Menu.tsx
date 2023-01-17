@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // images
 import shoe from "@images/shoe.svg";
@@ -29,12 +30,24 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
       <div className="z-20 flex w-full items-center justify-center border-t">
         <ol className="relative flex w-full max-w-3xl flex-col gap-6 overflow-hidden py-6 px-8 capitalize sm:text-lg">
           <SearchBar classes="flex items-start justify-start rounded-md border p-1 sm:hidden" />
-          <li className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12 before:bg-yellow-300 sm:hidden">
+          <Link
+            href="/justarrived"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+            className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12 before:bg-yellow-300 sm:hidden"
+          >
             <span className="relative">Just Arrived</span>
-          </li>
-          <li className="relative w-[150px] cursor-pointer p-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 sm:hidden">
+          </Link>
+          <Link
+            href="/sale"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+            className="relative w-[150px] cursor-pointer p-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 sm:hidden"
+          >
             <span className="relative">Sale</span>
-          </li>
+          </Link>
           <li
             onClick={() => {
               setIsProfileOpen(true);
@@ -44,10 +57,42 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
           >
             👤 profile &#8690;
           </li>
-          <li className="cursor-pointer p-2">❤️ favorites &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">👧 women &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">👦 men &#8690;</li>
-          <li className="cursor-pointer p-2 sm:hidden">👶 kids &#8690;</li>
+          <Link
+            href="/favorites"
+            className="cursor-pointer p-2"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            ❤️ favorites &#8690;
+          </Link>
+          <Link
+            href="/women"
+            className="cursor-pointer p-2 sm:hidden"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            👧 women &#8690;
+          </Link>
+          <Link
+            href="/men"
+            className="cursor-pointer p-2 sm:hidden"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            👦 men &#8690;
+          </Link>
+          <Link
+            href="/kids"
+            className="cursor-pointer p-2 sm:hidden"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            👶 kids &#8690;
+          </Link>
           <Image
             src={shoe}
             alt="shoe"

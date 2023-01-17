@@ -13,3 +13,4 @@ export * from "./Giftings/Giftings";
 export * from "./Trending/Trending";
 export * from "./ShoppingFor/ShoppingFor";
 export * from "./Footer/Footer";
+export * from "./ProductItem/ProductItem";

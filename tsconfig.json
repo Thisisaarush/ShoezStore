@@ -24,7 +24,7 @@
       "@components": ["src/components/index.ts"],
       "@utils/*": ["src/utils/*"],
       "@configs/*": ["src/configs/*"],
-      "@types": ["src/types/index.ts"],
+      "@types": ["src/Types/Types.ts"],
       "@icons/*": ["public/icons/*"],
       "@images/*": ["public/images/*"]
     }

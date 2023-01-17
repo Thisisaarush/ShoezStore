@@ -29,6 +29,7 @@ export const Trending = () => {
             fill={true}
             style={{ objectFit: "cover" }}
             quality={50}
+            sizes="(max-width: 1024px) 100vw"
           />
         </span>
 
@@ -40,6 +41,7 @@ export const Trending = () => {
               fill={true}
               style={{ objectFit: "cover" }}
               quality={50}
+              sizes="(max-width: 1024px) 100vw"
             />
           </span>
           <span className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[200px] sm:w-[300px] md:h-[300px] md:w-[360px] lg:w-[480px]">
@@ -49,6 +51,7 @@ export const Trending = () => {
               fill={true}
               style={{ objectFit: "cover" }}
               quality={50}
+              sizes="(max-width: 1024px) 100vw"
             />
           </span>
         </div>

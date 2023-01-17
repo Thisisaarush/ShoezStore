@@ -15,6 +15,7 @@ import { Menu, Search, Profile } from "@components";
 
 // utils
 import { SlideDownAnimation } from "@utils/animations";
+import Link from "next/link";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -59,46 +60,67 @@ export const Navbar: React.FC = () => {
       <div className="flex w-full max-w-5xl content-center items-center justify-between border-b sm:border-none">
         <div
           onClick={() => setIsMenuOpen(true)}
-          className="flex h-[50px]  max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white"
+          className="flex h-[50px]  max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100"
         >
           <Image src={menu} alt="menu" />
         </div>
         <div
           onClick={() => setIsSearchOpen(true)}
-          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex"
+          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-r transition-colors duration-300 ease-in-out hover:bg-gray-100 sm:flex"
         >
           <Image src={search} alt="search" />
         </div>
-        <div className="relative flex h-[50px] flex-auto cursor-pointer items-center justify-center font-orbitron font-medium uppercase tracking-wide transition-all duration-300 ease-in hover:tracking-widest hover:text-white hover:before:absolute hover:before:inset-0 hover:before:bg-black">
+        <Link
+          href="/"
+          className="relative flex h-[50px] flex-auto cursor-pointer items-center justify-center font-orbitron font-medium uppercase tracking-wide transition-all duration-300 ease-in hover:tracking-widest hover:text-white hover:before:absolute hover:before:inset-0 hover:before:bg-black"
+        >
           <span className="relative">shoez store</span>
-        </div>
+        </Link>
         <div
           onClick={() => setIsProfileOpen(true)}
-          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white sm:flex"
+          className="hidden h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 sm:flex"
         >
           <Image src={profile} alt="profile" />
         </div>
-        <div className="flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-white">
+        <Link
+          href="/cart"
+          className="flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100"
+        >
           <Image src={cart} alt="cart" />
-        </div>
+        </Link>
       </div>
 
       <div className="hidden w-full items-center justify-center border-t py-8 text-sm sm:flex md:text-base">
-        <div className="relative mx-4 hover:before:bg-yellow-400 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300">
+        <Link
+          href="/justarrived"
+          className="relative mx-4 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300 hover:before:bg-yellow-400"
+        >
           <span className="relative">Just Arrived</span>
-        </div>
-        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize  text-gray-500">
+        </Link>
+        <Link
+          href="/men"
+          className="mx-4 cursor-pointer px-2 capitalize text-gray-500  hover:text-black"
+        >
           Men
-        </div>
-        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize text-gray-500">
+        </Link>
+        <Link
+          href="/women"
+          className="mx-4 cursor-pointer px-2 capitalize text-gray-500 hover:text-black"
+        >
           Women
-        </div>
-        <div className="mx-4 hover:text-black cursor-pointer px-2 capitalize text-gray-500">
+        </Link>
+        <Link
+          href="/kids"
+          className="mx-4 cursor-pointer px-2 capitalize text-gray-500 hover:text-black"
+        >
           Kids
-        </div>
-        <div className="relative mx-4 hover:before:bg-red-600 cursor-pointer px-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500">
+        </Link>
+        <Link
+          href="/sale"
+          className="relative mx-4 cursor-pointer px-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 hover:before:bg-red-600"
+        >
           <span className="relative">Sale</span>
-        </div>
+        </Link>
       </div>
     </nav>
   );
