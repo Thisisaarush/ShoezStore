@@ -57,7 +57,7 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
           >
             👤 profile &#8690;
           </li>
-          <Link
+          {/* <Link
             href="/favorites"
             className="cursor-pointer p-2"
             onClick={() => {
@@ -65,7 +65,10 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
             }}
           >
             ❤️ favorites &#8690;
-          </Link>
+          </Link> */}
+          <span className="hidden tracking-widest sm:flex">
+            Nice to see you here!
+          </span>
           <Link
             href="/women"
             className="cursor-pointer p-2 sm:hidden"
