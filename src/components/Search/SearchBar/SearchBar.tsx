@@ -8,7 +8,7 @@ type TSearchBar = (props: {
 
 export const SearchBar: TSearchBar = ({ classes, autoFocus = false }) => {
   return (
-    <form action="/search" method="get" className={classes}>
+    <form action="/search" method="GET" className={classes}>
       <span className="p-2">🔍</span>
       <input
         type="search"
