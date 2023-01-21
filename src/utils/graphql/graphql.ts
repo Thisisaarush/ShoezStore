@@ -54,3 +54,16 @@ export const GET_CATEGORIES = gql`
     }
   }
 `;
+
+// mutations
+export const REGISTER_USER = gql`
+  mutation RegisterUser($user: IUser!) {
+    registerUser(user: $user) {
+      email
+      message
+      name
+      success
+      token
+    }
+  }
+`;
