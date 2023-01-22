@@ -26,7 +26,8 @@
       "@configs/*": ["src/configs/*"],
       "@types": ["src/Types/Types.ts"],
       "@icons/*": ["public/icons/*"],
-      "@images/*": ["public/images/*"]
+      "@images/*": ["public/images/*"],
+      "@zustand": ["src/zustand/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

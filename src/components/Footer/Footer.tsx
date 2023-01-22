@@ -8,7 +8,7 @@ export const Footer = () => {
         <span className="font-orbitron text-3xl font-semibold">cool</span>
       </div>
 
-      <div className="flex gap-8 justify-center items-center">
+      <div className="flex items-center justify-center gap-8">
         <span className="hidden cursor-pointer sm:block">github &#8689;</span>
         <span className="hidden cursor-pointer sm:block">linkedin &#8689;</span>
         <span className="font-orbitron text-lg font-semibold uppercase md:text-xl">

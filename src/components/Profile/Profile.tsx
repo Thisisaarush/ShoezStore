@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useLoginStore } from "@zustand";
 
 // types
 type TProfile = (props: {
@@ -7,6 +10,9 @@ type TProfile = (props: {
 }) => JSX.Element;
 
 export const Profile: TProfile = ({ setIsProfileOpen }) => {
+  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
+  const setUserLoggedIn = useLoginStore((state) => state.setUserLoggedIn);
+
   return (
     <div className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
@@ -21,23 +27,34 @@ export const Profile: TProfile = ({ setIsProfileOpen }) => {
 
       <div className="z-20 flex w-full items-center justify-center border-t">
         <ol className="relative flex w-full max-w-3xl flex-col gap-6 overflow-hidden py-6 px-8 capitalize sm:text-lg">
-          <Link
-            href="/register"
-            onClick={() => setIsProfileOpen(false)}
-            className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12"
-          >
-            <span className="relative">register &#8690;</span>
-          </Link>
-          <Link
-            href="/login"
-            onClick={() => setIsProfileOpen(false)}
-            className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12"
-          >
-            <span className="relative">login &#8690;</span>
-          </Link>
-          {/* <li className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12">
-            <span className="relative">logout &#8690;</span>
-          </li> */}
+          {!isUserLoggedIn ? (
+            <span className="flex flex-col gap-6">
+              <Link
+                href="/register"
+                onClick={() => setIsProfileOpen(false)}
+                className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12"
+              >
+                <span className="relative">register &#8690;</span>
+              </Link>
+              <Link
+                href="/login"
+                onClick={() => setIsProfileOpen(false)}
+                className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12"
+              >
+                <span className="relative">login &#8690;</span>
+              </Link>
+            </span>
+          ) : (
+            <li
+              onClick={() => {
+                setUserLoggedIn(false);
+                setIsProfileOpen(false);
+              }}
+              className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12"
+            >
+              <span className="relative">logout &#8690;</span>
+            </li>
+          )}
         </ol>
       </div>
 

@@ -1,20 +1,45 @@
 "use client";
 
+import React, { FormEvent, useEffect, useRef } from "react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useMutation } from "@apollo/client";
 import { Error, Loading } from "@components";
 import { REGISTER_USER } from "@utils/graphql";
-import Link from "next/link";
-import React, { useRef } from "react";
+
+// zustand
+import { useLoginStore } from "@zustand";
 
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
-  const inputNameRef = useRef<any>(null);
-  const inputEmailRef = useRef<any>(null);
-  const inputPasswordRef = useRef<any>(null);
+  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
+  const setUserLoggedIn = useLoginStore((state) => state.setUserLoggedIn);
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  // redirect
+  if (data?.registerUser?.success) setUserLoggedIn(true);
+  if (isUserLoggedIn) redirect("/");
 
   // loading and error states
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
+
+  // on submit form
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await registerUser({
+      variables: {
+        user: {
+          name: inputNameRef?.current?.value,
+          email: inputEmailRef?.current?.value,
+          password: inputPasswordRef?.current?.value,
+        },
+      },
+    });
+  };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -26,19 +51,7 @@ const Register = () => {
           method="POST"
           action=""
           className="flex flex-col items-center justify-center gap-10 py-8"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            await registerUser({
-              variables: {
-                user: {
-                  name: inputNameRef?.current?.value,
-                  email: inputEmailRef?.current?.value,
-                  password: inputPasswordRef?.current?.value,
-                },
-              },
-            });
-            console.log(data);
-          }}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <span className="relative">
             <input
