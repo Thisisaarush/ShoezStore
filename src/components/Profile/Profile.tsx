@@ -10,19 +10,19 @@ type TProfile = (props: {
 }) => JSX.Element;
 
 export const Profile: TProfile = ({ setIsProfileOpen }) => {
-  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
-  const setUserLoggedIn = useLoginStore((state) => state.setUserLoggedIn);
+  const { isUserLoggedIn, setUserLoggedIn, userName, resetUserName } =
+    useLoginStore();
 
   return (
     <div className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
-        <div>User</div>
-        <div
+        <span>{userName}</span>
+        <span
           onClick={() => setIsProfileOpen(false)}
           className="w-auto cursor-pointer p-1"
         >
           X
-        </div>
+        </span>
       </div>
 
       <div className="z-20 flex w-full items-center justify-center border-t">
@@ -49,6 +49,7 @@ export const Profile: TProfile = ({ setIsProfileOpen }) => {
               onClick={() => {
                 setUserLoggedIn(false);
                 setIsProfileOpen(false);
+                resetUserName();
               }}
               className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12"
             >

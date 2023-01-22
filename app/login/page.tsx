@@ -1,19 +1,55 @@
 "use client";
 
+import React, { FormEvent, useRef } from "react";
 import Link from "next/link";
-import React from "react";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "@utils/graphql";
+import { useLoginStore } from "@zustand";
+import { redirect } from "next/navigation";
+import { Error, Loading } from "@components";
 
 const Register = () => {
+  const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
+  const { isUserLoggedIn, setUserLoggedIn, setUserName } = useLoginStore();
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  // redirect
+  if (data?.loginUser?.success) {
+    setUserName(data?.loginUser?.name);
+    setUserLoggedIn(true);
+  }
+  if (isUserLoggedIn) redirect("/");
+
+  // loading and error states
+  if (loading) return <Loading />;
+  if (error) return <Error error={error} />;
+
+  // on submit form
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await loginUser({
+      variables: {
+        user: {
+          email: inputEmailRef?.current?.value,
+          password: inputPasswordRef?.current?.value,
+        },
+      },
+    });
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="m-auto mt-10 flex w-fit max-w-5xl flex-col items-center justify-center rounded-2xl border py-8 px-6 sm:p-10">
         <span className="mb-10 text-xl font-semibold capitalize">
           Login to your Account
         </span>
+        <p className="text-sm text-pink-600">{data?.loginUser?.message}</p>
+
         <form
           method="POST"
           className="flex flex-col items-center justify-center gap-10 py-8"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <span className="relative">
             <input
@@ -21,6 +57,7 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="email"
+              ref={inputEmailRef}
               className="peer w-80 rounded-md bg-slate-50 px-4 py-2 placeholder-transparent focus:border-b-2 focus:border-b-gray-500 focus:outline-none"
               required
             />
@@ -38,6 +75,7 @@ const Register = () => {
               id="password"
               name="password"
               placeholder="password"
+              ref={inputPasswordRef}
               className="peer w-80 rounded-md bg-slate-50 px-4 py-2 placeholder-transparent focus:border-b-2 focus:border-b-gray-500 focus:outline-none"
               required
             />

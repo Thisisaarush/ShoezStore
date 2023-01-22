@@ -12,14 +12,16 @@ import { useLoginStore } from "@zustand";
 
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
-  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
-  const setUserLoggedIn = useLoginStore((state) => state.setUserLoggedIn);
+  const { isUserLoggedIn, setUserLoggedIn, setUserName } = useLoginStore();
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputEmailRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
 
   // redirect
-  if (data?.registerUser?.success) setUserLoggedIn(true);
+  if (data?.registerUser?.success) {
+    setUserName(data?.registerUser?.name);
+    setUserLoggedIn(true);
+  }
   if (isUserLoggedIn) redirect("/");
 
   // loading and error states
@@ -47,6 +49,8 @@ const Register = () => {
         <span className="mb-10 text-xl font-semibold capitalize">
           Create New Account
         </span>
+        <p className="text-sm text-pink-600">{data?.registerUser?.message}</p>
+
         <form
           method="POST"
           action=""
