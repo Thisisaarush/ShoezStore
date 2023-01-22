@@ -3,6 +3,7 @@
 // ? context is not supported in ssr yet
 
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 // apollo client
 import { ApolloProvider } from "@apollo/client";
@@ -20,11 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <ApolloProvider client={client}>
-          <Navbar />
-          {children}
-          <Footer />
-        </ApolloProvider>
+        <SessionProvider>
+          <ApolloProvider client={client}>
+            <Navbar />
+            {children}
+            <Footer />
+          </ApolloProvider>
+        </SessionProvider>
       </body>
     </html>
   );

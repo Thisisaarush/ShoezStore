@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useLoginStore } from "@zustand";
+import { signOut } from "next-auth/react";
 
 // types
 type TProfile = (props: {
@@ -50,6 +51,7 @@ export const Profile: TProfile = ({ setIsProfileOpen }) => {
                 setUserLoggedIn(false);
                 setIsProfileOpen(false);
                 resetUserName();
+                signOut();
               }}
               className="relative w-[150px] cursor-pointer p-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12"
             >

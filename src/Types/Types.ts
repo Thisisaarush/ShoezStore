@@ -1,3 +1,4 @@
+// product types
 export type TProduct = {
   name: string;
   price: number;
@@ -15,3 +16,12 @@ export type TCategoryProduct = {
   tag: string;
   uri: string;
 };
+
+// store types
+export interface TLoginStore {
+  userName?: string | null;
+  isUserLoggedIn: boolean;
+  setUserName: (input?: string | null) => void;
+  resetUserName: () => void;
+  setUserLoggedIn: (input: boolean) => void;
+}

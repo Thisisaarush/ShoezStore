@@ -8,15 +8,22 @@ import { useLoginStore } from "@zustand";
 import { redirect } from "next/navigation";
 import { Error, Loading } from "@components";
 
+// next auth
+import { useSession, signIn } from "next-auth/react";
+
 const Register = () => {
   const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
   const { isUserLoggedIn, setUserLoggedIn, setUserName } = useLoginStore();
+
   const inputEmailRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
 
+  // next auth session
+  const { data: session } = useSession();
+
   // redirect
   if (data?.loginUser?.success) {
-    setUserName(data?.loginUser?.name);
+    setUserName(session?.user?.name || data?.registerUser?.name);
     setUserLoggedIn(true);
   }
   if (isUserLoggedIn) redirect("/");
@@ -39,8 +46,8 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="m-auto mt-10 flex w-fit max-w-5xl flex-col items-center justify-center rounded-2xl border py-8 px-6 sm:p-10">
+    <div className="m-auto flex min-h-screen max-w-5xl flex-col items-center gap-10">
+      <div className="mt-10 flex flex-col items-center justify-center rounded-2xl border py-8 px-6 sm:p-10">
         <span className="mb-10 text-xl font-semibold capitalize">
           Login to your Account
         </span>
@@ -94,13 +101,28 @@ const Register = () => {
             login
           </button>
         </form>
-        <div className="justify-cente flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-4">
           <span className="text-sm text-gray-400">Don't have an account</span>
           <Link href="/register" className="capitalize hover:text-gray-600">
             register
           </Link>
         </div>
       </div>
+
+      {!session && (
+        <div className="flex flex-col items-center justify-center gap-10">
+          <span className="text-sm text-gray-400">or</span>
+          <span
+            onClick={(e) => {
+              e.preventDefault();
+              signIn("google");
+            }}
+            className="cursor-pointer rounded-md bg-blue-500 px-6 py-2 capitalize text-white hover:bg-blue-400"
+          >
+            continue with google
+          </span>
+        </div>
+      )}
     </div>
   );
 };

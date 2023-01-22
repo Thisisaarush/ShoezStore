@@ -1,15 +1,8 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { TLoginStore } from "@types";
 
-interface TLoginState {
-  userName: string;
-  isUserLoggedIn: boolean;
-  setUserName: (input: string) => void;
-  resetUserName: () => void;
-  setUserLoggedIn: (input: boolean) => void;
-}
-
-export const useLoginStore = create<TLoginState>()(
+export const useLoginStore = create<TLoginStore>()(
   devtools(
     persist(
       (set) => ({
@@ -20,7 +13,7 @@ export const useLoginStore = create<TLoginState>()(
         setUserLoggedIn: (input) => set({ isUserLoggedIn: input }),
       }),
       {
-        name: "isUserLoggedIn",
+        name: "user",
       }
     )
   )
