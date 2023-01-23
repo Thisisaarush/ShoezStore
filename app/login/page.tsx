@@ -22,8 +22,8 @@ const Register = () => {
   const { data: session } = useSession();
 
   // redirect
-  if (data?.loginUser?.success) {
-    setUserName(session?.user?.name || data?.registerUser?.name);
+  if (data?.loginUser?.success || session?.expires) {
+    setUserName(session?.user?.name || data?.loginUser?.name);
     setUserLoggedIn(true);
   }
   if (isUserLoggedIn) redirect("/");
