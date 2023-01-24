@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,10 +13,20 @@ import {
   GET_RECOMMENDED,
   GET_TRENDING,
 } from "@utils/graphql";
+import { useCartStore } from "@zustand";
 
 const Product = () => {
+  const [isProductSizeSelected, setIsProductSizeSelected] = useState(false);
   const pathName = usePathname();
   const productId = pathName?.split(/\//g)[2];
+
+  const cartItems = useCartStore((state) => state.cartItems);
+  const currentProductSize = useCartStore((state) => state.currentProductSize);
+  const setCartItems = useCartStore((state) => state.setCartItems);
+  const setCurrentProductSize = useCartStore(
+    (state) => state.setCurrentProductSize
+  );
+  console.log(cartItems);
 
   const {
     data: CategoriesData,
@@ -55,6 +65,8 @@ const Product = () => {
   if (l1 || l2 || l3 || l4) <Loading />;
   if (e1 || e2 || e3 || e4) <Error error={e1 || e2 || e3 || e4} />;
 
+  console.log(cartItems);
+
   return (
     <div className="m-auto flex max-w-5xl flex-col p-2 sm:flex-row">
       <div className="relative h-80 cursor-pointer hover:opacity-90 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
@@ -80,13 +92,18 @@ const Product = () => {
           <span className="capitalize text-gray-500">select size</span>
           <div className="flex flex-wrap gap-2">
             {product[0]?.sizes.map((size: number) => (
-              <span className="relative flex h-10 w-16 items-center hover:bg-gray-100">
+              <span
+                className="relative flex h-10 w-16 items-center hover:bg-gray-100"
+                onClick={() => {
+                  setCurrentProductSize(size);
+                  setIsProductSizeSelected(true);
+                }}
+              >
                 <input
                   type="radio"
                   id={product[0]?.uri}
                   name="size"
                   className="peer absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer opacity-0"
-                  checked
                 />
                 <label
                   htmlFor={product[0]?.uri}
@@ -97,13 +114,32 @@ const Product = () => {
               </span>
             ))}
           </div>
+          {!isProductSizeSelected && (
+            <span className="text-sm text-pink-600">
+              please select your shoes size
+            </span>
+          )}
         </div>
 
-        <div className="mt-4 flex h-fit w-fit items-center gap-4 capitalize">
-          <span className="w-fit cursor-pointer bg-black px-6 py-3 text-white transition-all duration-300 ease-in-out hover:opacity-80 active:scale-95">
-            add to cart
-          </span>
-          <Link href="/" className="h-fit w-fit text-gray-500">
+        <div className="mt-4 flex h-fit w-fit items-center gap-6 capitalize">
+          {isProductSizeSelected ? (
+            <span
+              onClick={() =>
+                setCartItems({
+                  productId: productId,
+                  selectedProductSize: currentProductSize,
+                })
+              }
+              className="w-fit cursor-pointer bg-black px-6 py-3 text-white transition-all duration-300 ease-in-out hover:opacity-80 active:scale-95"
+            >
+              add to cart
+            </span>
+          ) : (
+            <span className="w-fit bg-gray-300 px-6 py-3 text-white">
+              add to cart
+            </span>
+          )}
+          <Link href="/" className="h-fit w-fit text-sm text-gray-500">
             explore more &#8690;
           </Link>
         </div>

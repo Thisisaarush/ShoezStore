@@ -19,3 +19,13 @@ export interface TLoginStore {
   resetUserName: () => void;
   setUserLoggedIn: (input: boolean) => void;
 }
+
+export interface TCartStore {
+  cartItems: { productId: string; selectedProductSize: number }[];
+  currentProductSize: number;
+  setCurrentProductSize: (input: number) => void;
+  setCartItems: (input: {
+    productId?: string;
+    selectedProductSize?: number;
+  }) => void;
+}

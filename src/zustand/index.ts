@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { TLoginStore } from "@types";
+import { TCartStore, TLoginStore } from "@types";
 
 export const useLoginStore = create<TLoginStore>()(
   devtools(
@@ -14,6 +14,25 @@ export const useLoginStore = create<TLoginStore>()(
       }),
       {
         name: "user",
+      }
+    )
+  )
+);
+
+export const useCartStore = create<TCartStore>()(
+  devtools(
+    persist(
+      (set) => ({
+        cartItems: [],
+        currentProductSize: 0,
+        setCurrentProductSize: (input) => set({ currentProductSize: input }),
+        setCartItems: (input) =>
+          set((state: any) => ({
+            cartItems: [...state?.cartItems, input],
+          })),
+      }),
+      {
+        name: "cartItems",
       }
     )
   )
