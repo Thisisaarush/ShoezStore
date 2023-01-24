@@ -10,6 +10,7 @@ export const client = new ApolloClient({
 export const GET_HERO_SLIDES = gql`
   query GetHeroslides {
     heroSlider {
+      id
       name
       price
       sizes
@@ -21,6 +22,7 @@ export const GET_HERO_SLIDES = gql`
 export const GET_RECOMMENDED = gql`
   query GetRecommended {
     recommended {
+      id
       name
       price
       sizes
@@ -32,6 +34,7 @@ export const GET_RECOMMENDED = gql`
 export const GET_TRENDING = gql`
   query GetTrending {
     trending {
+      id
       name
       price
       sizes
@@ -43,6 +46,7 @@ export const GET_TRENDING = gql`
 export const GET_CATEGORIES = gql`
   query GetCategories {
     category {
+      id
       brand
       category
       color

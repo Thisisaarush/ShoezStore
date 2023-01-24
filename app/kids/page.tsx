@@ -10,13 +10,13 @@ import { GET_CATEGORIES } from "@utils/graphql";
 import { useQuery } from "@apollo/client";
 
 //types
-import { TCategoryProduct } from "@types";
+import { TProduct } from "@types";
 
 const Kids = () => {
   const { loading, error, data } = useQuery(GET_CATEGORIES);
 
-  const kidsShoes: TCategoryProduct[] = data?.category.filter(
-    (product: TCategoryProduct) => product?.category === "kids"
+  const kidsShoes: TProduct[] = data?.category.filter(
+    (product: TProduct) => product?.category === "kids"
   );
 
   // loading and error states
@@ -32,7 +32,7 @@ const Kids = () => {
       </div>
 
       <div className="flex w-full flex-wrap justify-center gap-4 py-10 md:gap-8 md:py-16">
-        {kidsShoes?.map((product: TCategoryProduct) => (
+        {kidsShoes?.map((product: TProduct) => (
           <ProductItem product={product} key={product.uri} />
         ))}
       </div>

@@ -11,15 +11,15 @@ import { GET_CATEGORIES } from "@utils/graphql";
 import { useQuery } from "@apollo/client";
 
 //types
-import { TCategoryProduct } from "@types";
+import { TProduct } from "@types";
 
 const Search = () => {
   const searchParams = useSearchParams();
   const searchQuery: string = searchParams.get("q") || "";
   const { loading, error, data } = useQuery(GET_CATEGORIES);
 
-  const searchProducts: TCategoryProduct[] = data?.category.filter(
-    (product: TCategoryProduct) =>
+  const searchProducts: TProduct[] = data?.category.filter(
+    (product: TProduct) =>
       product?.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -37,7 +37,7 @@ const Search = () => {
       </div>
 
       <div className="flex w-full flex-wrap justify-center gap-4 py-10 md:gap-8 md:py-16">
-        {searchProducts?.map((product: TCategoryProduct) => (
+        {searchProducts?.map((product: TProduct) => (
           <ProductItem product={product} key={product.uri} />
         ))}
       </div>

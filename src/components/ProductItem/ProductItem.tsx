@@ -1,15 +1,15 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
-import { TCategoryProduct } from "@types";
+import Link from "next/link";
+import { TProduct } from "@types";
 
 // types
-type TProductItem = (props: { product: TCategoryProduct }) => JSX.Element;
+type TProductItem = (props: { product: TProduct }) => JSX.Element;
 
 export const ProductItem: TProductItem = ({ product }) => {
   return (
-    <div
+    <Link
+      href={`/product/${product.id}`}
       className="relative flex w-44 cursor-pointer flex-col items-start justify-center  bg-white py-2 text-sm hover:opacity-90 sm:w-56 md:text-base"
       key={product?.uri}
     >
@@ -27,6 +27,6 @@ export const ProductItem: TProductItem = ({ product }) => {
         <p className="mb-2 text-slate-700">{product?.name}</p>
         <p className="">&#8377; {product?.price}</p>
       </span>
-    </div>
+    </Link>
   );
 };
