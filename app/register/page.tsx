@@ -15,7 +15,7 @@ import { useSession, signIn } from "next-auth/react";
 
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
-  const { isUserLoggedIn, setUserLoggedIn, setUserName } = useLoginStore();
+  const { isUserLoggedIn, setUserLoggedIn, setUserDetails } = useLoginStore();
 
   const inputNameRef = useRef<HTMLInputElement>(null);
   const inputEmailRef = useRef<HTMLInputElement>(null);
@@ -26,7 +26,10 @@ const Register = () => {
 
   // redirect
   if (data?.registerUser?.success || session?.expires) {
-    setUserName(session?.user?.name || data?.registerUser?.name);
+    setUserDetails({
+      userName: session?.user?.name || data?.registerUser?.name,
+      userEmail: session?.user?.email || data?.registerUser?.email,
+    });
     setUserLoggedIn(true);
   }
   if (isUserLoggedIn) redirect("/");

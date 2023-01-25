@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 // apollo client
 export const client = new ApolloClient({
+  // uri: "http://localhost:4000/",
   uri: "https://shoezstore.up.railway.app/",
   cache: new InMemoryCache(),
 });
@@ -80,6 +81,21 @@ export const LOGIN_USER = gql`
       name
       success
       token
+    }
+  }
+`;
+
+export const UPDATE_USER_CART_ITEMS = gql`
+  mutation updateUserCartItems($user: IUserCartItems!) {
+    updateUserCartItems(user: $user) {
+      email
+      items {
+        numberOfItems
+        itemSize
+        itemId
+      }
+      message
+      success
     }
   }
 `;

@@ -13,19 +13,27 @@ export type TProduct = {
 
 // store types
 export interface TLoginStore {
-  userName?: string | null;
+  userDetails: { name?: string; email?: string };
   isUserLoggedIn: boolean;
-  setUserName: (input?: string | null) => void;
+  setUserDetails: (input: { userName?: string; userEmail?: string }) => void;
   resetUserName: () => void;
   setUserLoggedIn: (input: boolean) => void;
 }
 
+export type TCartItem = {
+  itemId: string;
+  itemSize: number;
+  numberOfItems: number;
+};
+
 export interface TCartStore {
-  cartItems: { productId: string; selectedProductSize: number }[];
+  cartItems: TCartItem[];
   currentProductSize: number;
   setCurrentProductSize: (input: number) => void;
+  setNumberOfProducts: (product: TCartItem) => void;
   setCartItems: (input: {
-    productId?: string;
-    selectedProductSize?: number;
+    itemId?: string;
+    itemSize?: number;
+    numberOfItems?: number;
   }) => void;
 }

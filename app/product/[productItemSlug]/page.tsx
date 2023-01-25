@@ -1,33 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Error, Loading } from "@components";
 import { TProduct } from "@types";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   GET_CATEGORIES,
   GET_HERO_SLIDES,
   GET_RECOMMENDED,
   GET_TRENDING,
+  UPDATE_USER_CART_ITEMS,
 } from "@utils/graphql";
-import { useCartStore } from "@zustand";
+import { useCartStore, useLoginStore } from "@zustand";
 
 const Product = () => {
   const [isProductSizeSelected, setIsProductSizeSelected] = useState(false);
-  const pathName = usePathname();
-  const productId = pathName?.split(/\//g)[2];
+  const pathName: string = usePathname() || "";
+  const pathNameArray = pathName.split(/\//g);
+  const currentProductId = pathNameArray[pathNameArray.length - 1];
 
+  // zustand states
+  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
+  const userDetails = useLoginStore((state) => state.userDetails);
   const cartItems = useCartStore((state) => state.cartItems);
   const currentProductSize = useCartStore((state) => state.currentProductSize);
   const setCartItems = useCartStore((state) => state.setCartItems);
   const setCurrentProductSize = useCartStore(
     (state) => state.setCurrentProductSize
   );
-  console.log(cartItems);
+  const setNumberOfProducts = useCartStore(
+    (state) => state.setNumberOfProducts
+  );
 
+  // graphql mutation and queries
+  const [updateUserCartItems] = useMutation(UPDATE_USER_CART_ITEMS);
   const {
     data: CategoriesData,
     loading: l1,
@@ -48,16 +57,16 @@ const Product = () => {
   // filtering productId
   const product: TProduct[] =
     CategoriesData?.category.filter(
-      (product: TProduct) => product?.id === productId
+      (product: TProduct) => product?.id === currentProductId
     ) ||
     HeroSlidesData?.heroSlider.filter(
-      (product: TProduct) => product?.id === productId
+      (product: TProduct) => product?.id === currentProductId
     ) ||
     RecommendedData?.recommended.filter(
-      (product: TProduct) => product?.id === productId
+      (product: TProduct) => product?.id === currentProductId
     ) ||
     TrendingData?.trending.filter(
-      (product: TProduct) => product?.id === productId
+      (product: TProduct) => product?.id === currentProductId
     ) ||
     [];
 
@@ -65,10 +74,48 @@ const Product = () => {
   if (l1 || l2 || l3 || l4) <Loading />;
   if (e1 || e2 || e3 || e4) <Error error={e1 || e2 || e3 || e4} />;
 
-  console.log(cartItems);
+  // handle add to cart
+  const handleAddToCart = () => {
+    if (cartItems.length > 0) {
+      const alredyExistProduct = cartItems.filter(
+        ({ itemId, itemSize }) =>
+          itemId === currentProductId && itemSize === currentProductSize
+      );
+
+      if (alredyExistProduct[0]) {
+        setNumberOfProducts(alredyExistProduct[0]);
+      } else {
+        setCartItems({
+          itemId: currentProductId,
+          itemSize: currentProductSize,
+          numberOfItems: 1,
+        });
+      }
+    } else {
+      setCartItems({
+        itemId: currentProductId,
+        itemSize: currentProductSize,
+        numberOfItems: 1,
+      });
+    }
+  };
+
+  // storing user cart items if logged in
+  useEffect(() => {
+    const updateCart = async () => {
+      if (isUserLoggedIn) {
+        await updateUserCartItems({
+          variables: {
+            user: { email: userDetails?.email, cartItems: cartItems },
+          },
+        });
+      }
+    };
+    updateCart();
+  }, [cartItems]);
 
   return (
-    <div className="m-auto flex max-w-5xl flex-col p-2 sm:flex-row">
+    <div className="m-auto flex min-h-screen max-w-5xl flex-col p-2 sm:flex-row">
       <div className="relative h-80 cursor-pointer hover:opacity-90 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
         <Image
           src={product[0]?.uri}
@@ -124,12 +171,7 @@ const Product = () => {
         <div className="mt-4 flex h-fit w-fit items-center gap-6 capitalize">
           {isProductSizeSelected ? (
             <span
-              onClick={() =>
-                setCartItems({
-                  productId: productId,
-                  selectedProductSize: currentProductSize,
-                })
-              }
+              onClick={() => handleAddToCart()}
               className="w-fit cursor-pointer bg-black px-6 py-3 text-white transition-all duration-300 ease-in-out hover:opacity-80 active:scale-95"
             >
               add to cart
