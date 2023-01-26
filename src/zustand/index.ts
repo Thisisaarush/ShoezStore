@@ -37,6 +37,10 @@ export const useCartStore = create<TCartStore>()(
           set((state: any) => ({
             cartItems: [...state?.cartItems, input],
           })),
+        replaceCartItems: (input) =>
+          set({
+            cartItems: [...input],
+          }),
       }),
       {
         name: "cartItems",

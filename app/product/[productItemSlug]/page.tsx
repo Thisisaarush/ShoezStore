@@ -1,20 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Error, Loading } from "@components";
 import { TProduct } from "@types";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
   GET_CATEGORIES,
   GET_HERO_SLIDES,
   GET_RECOMMENDED,
   GET_TRENDING,
-  UPDATE_USER_CART_ITEMS,
 } from "@utils/graphql";
-import { useCartStore, useLoginStore } from "@zustand";
+import { useCartStore } from "@zustand";
 
 const Product = () => {
   const [isProductSizeSelected, setIsProductSizeSelected] = useState(false);
@@ -23,8 +22,6 @@ const Product = () => {
   const currentProductId = pathNameArray[pathNameArray.length - 1];
 
   // zustand states
-  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
-  const userDetails = useLoginStore((state) => state.userDetails);
   const cartItems = useCartStore((state) => state.cartItems);
   const currentProductSize = useCartStore((state) => state.currentProductSize);
   const setCartItems = useCartStore((state) => state.setCartItems);
@@ -35,8 +32,6 @@ const Product = () => {
     (state) => state.setNumberOfProducts
   );
 
-  // graphql mutation and queries
-  const [updateUserCartItems] = useMutation(UPDATE_USER_CART_ITEMS);
   const {
     data: CategoriesData,
     loading: l1,
@@ -99,20 +94,6 @@ const Product = () => {
       });
     }
   };
-
-  // storing user cart items if logged in
-  useEffect(() => {
-    const updateCart = async () => {
-      if (isUserLoggedIn) {
-        await updateUserCartItems({
-          variables: {
-            user: { email: userDetails?.email, cartItems: cartItems },
-          },
-        });
-      }
-    };
-    updateCart();
-  }, [cartItems]);
 
   return (
     <div className="m-auto flex min-h-screen max-w-5xl flex-col p-2 sm:flex-row">

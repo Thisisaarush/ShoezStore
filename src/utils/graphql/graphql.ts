@@ -60,6 +60,19 @@ export const GET_CATEGORIES = gql`
   }
 `;
 
+export const GET_CART_ITEMS = gql`
+  query GetCartItems {
+    cartItems {
+      email
+      items {
+        numberOfItems
+        itemSize
+        itemId
+      }
+    }
+  }
+`;
+
 // mutations
 export const REGISTER_USER = gql`
   mutation RegisterUser($user: IUser!) {

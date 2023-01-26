@@ -21,6 +21,7 @@ export interface TLoginStore {
 }
 
 export type TCartItem = {
+  __typename?: string;
   itemId: string;
   itemSize: number;
   numberOfItems: number;
@@ -31,9 +32,6 @@ export interface TCartStore {
   currentProductSize: number;
   setCurrentProductSize: (input: number) => void;
   setNumberOfProducts: (product: TCartItem) => void;
-  setCartItems: (input: {
-    itemId?: string;
-    itemSize?: number;
-    numberOfItems?: number;
-  }) => void;
+  setCartItems: (input: TCartItem) => void;
+  replaceCartItems: (input: TCartItem[]) => void;
 }
