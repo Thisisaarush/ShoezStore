@@ -71,14 +71,14 @@ export const CartItem: TCartItemComp = ({ item, cartItem }) => {
             <div className="mr-4 flex items-center justify-center gap-6">
               <span
                 onClick={handleSubtractItem}
-                className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full border bg-gray-50 p-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white"
+                className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full border bg-gray-50 p-2 transition-colors duration-200 ease-in-out hover:border-none hover:bg-black hover:text-white"
               >
                 -
               </span>
               <span>{cartItem?.numberOfItems}</span>
               <span
                 onClick={handleAddItem}
-                className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full border bg-gray-50 p-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white"
+                className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full border bg-gray-50 p-2 transition-colors duration-200 ease-in-out hover:border-none hover:bg-black hover:text-white"
               >
                 +
               </span>

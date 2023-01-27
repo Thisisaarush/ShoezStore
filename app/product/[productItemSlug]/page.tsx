@@ -145,7 +145,7 @@ const Product = () => {
           </div>
           {!isProductSizeSelected && (
             <span className="text-sm text-pink-600">
-              please select your shoes size
+              please select your shoes size*
             </span>
           )}
         </div>

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
-import { useCartStore } from "@zustand";
+import { useCartStore, useLoginStore } from "@zustand";
 import {
   GET_CATEGORIES,
   GET_HERO_SLIDES,
@@ -15,6 +15,7 @@ import { TProduct } from "@types";
 
 const Cart = () => {
   let totalPrice: number = 0;
+  const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
   const cartItems = useCartStore((state) => state.cartItems);
 
   // queries
@@ -93,10 +94,23 @@ const Cart = () => {
                 <span className="font-medium">total</span>
                 <span className="font-medium">&#8377; {totalPrice}</span>
               </div>
-
-              <span className="mt-8 w-fit cursor-pointer select-none rounded-md bg-black px-6 py-2 text-sm text-white hover:bg-gray-800 active:scale-95">
-                checkout
-              </span>
+              {isUserLoggedIn ? (
+                <span className="mt-8 w-fit cursor-pointer select-none rounded-md bg-black px-6 py-2 text-white hover:bg-gray-800 active:scale-95">
+                  checkout
+                </span>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <span className="mt-8 w-fit select-none rounded-md bg-gray-300 px-6 py-2 text-white">
+                    checkout
+                  </span>
+                  <Link
+                    href="/register"
+                    className="text-sm text-pink-600 hover:underline hover:underline-offset-2"
+                  >
+                    please login / register to checkout*
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         ) : (
