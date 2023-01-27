@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useQuery } from "@apollo/client";
 
 // graphql queries
@@ -22,7 +23,10 @@ export const Trending = () => {
       </span>
 
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center sm:justify-evenly sm:gap-0">
-        <span className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[416px] sm:w-[300px] md:h-[616px] md:w-[360px] lg:w-[480px]">
+        <Link
+          href={`/product/${data?.trending[0]?.id}`}
+          className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[416px] sm:w-[300px] md:h-[616px] md:w-[360px] lg:w-[480px]"
+        >
           <Image
             src={data?.trending[0]?.uri}
             alt="trending"
@@ -31,10 +35,13 @@ export const Trending = () => {
             quality={50}
             sizes="(max-width: 1024px) 100vw"
           />
-        </span>
+        </Link>
 
         <div className=" flex flex-col gap-4">
-          <span className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[200px] sm:w-[300px] md:h-[300px] md:w-[360px] lg:w-[480px]">
+          <Link
+            href={`/product/${data?.trending[1]?.id}`}
+            className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[200px] sm:w-[300px] md:h-[300px] md:w-[360px] lg:w-[480px]"
+          >
             <Image
               src={data?.trending[1]?.uri}
               alt="trending"
@@ -43,8 +50,11 @@ export const Trending = () => {
               quality={50}
               sizes="(max-width: 1024px) 100vw"
             />
-          </span>
-          <span className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[200px] sm:w-[300px] md:h-[300px] md:w-[360px] lg:w-[480px]">
+          </Link>
+          <Link
+            href={`/product/${data?.trending[2]?.id}`}
+            className="relative h-64 cursor-pointer hover:opacity-90 sm:h-[200px] sm:w-[300px] md:h-[300px] md:w-[360px] lg:w-[480px]"
+          >
             <Image
               src={data?.trending[2]?.uri}
               alt="trending"
@@ -53,7 +63,7 @@ export const Trending = () => {
               quality={50}
               sizes="(max-width: 1024px) 100vw"
             />
-          </span>
+          </Link>
         </div>
       </div>
     </div>

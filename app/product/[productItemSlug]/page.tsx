@@ -32,6 +32,7 @@ const Product = () => {
     (state) => state.setNumberOfProducts
   );
 
+  // queries
   const {
     data: CategoriesData,
     loading: l1,
@@ -50,20 +51,20 @@ const Product = () => {
   const { data: TrendingData, loading: l4, error: e4 } = useQuery(GET_TRENDING);
 
   // filtering productId
-  const product: TProduct[] =
-    CategoriesData?.category.filter(
+  const product: TProduct =
+    CategoriesData?.category.find(
       (product: TProduct) => product?.id === currentProductId
     ) ||
-    HeroSlidesData?.heroSlider.filter(
+    HeroSlidesData?.heroSlider.find(
       (product: TProduct) => product?.id === currentProductId
     ) ||
-    RecommendedData?.recommended.filter(
+    RecommendedData?.recommended.find(
       (product: TProduct) => product?.id === currentProductId
     ) ||
-    TrendingData?.trending.filter(
+    TrendingData?.trending.find(
       (product: TProduct) => product?.id === currentProductId
     ) ||
-    [];
+    {};
 
   // loading and error states
   if (l1 || l2 || l3 || l4) <Loading />;
@@ -72,13 +73,13 @@ const Product = () => {
   // handle add to cart
   const handleAddToCart = () => {
     if (cartItems.length > 0) {
-      const alredyExistProduct = cartItems.filter(
+      const alredyExistProduct = cartItems.find(
         ({ itemId, itemSize }) =>
           itemId === currentProductId && itemSize === currentProductSize
       );
 
-      if (alredyExistProduct[0]) {
-        setNumberOfProducts(alredyExistProduct[0]);
+      if (alredyExistProduct) {
+        setNumberOfProducts(alredyExistProduct);
       } else {
         setCartItems({
           itemId: currentProductId,
@@ -96,10 +97,10 @@ const Product = () => {
   };
 
   return (
-    <div className="m-auto flex min-h-screen max-w-5xl flex-col p-2 sm:flex-row">
-      <div className="relative h-80 cursor-pointer hover:opacity-90 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
+    <div className="m-auto flex min-h-screen max-w-5xl flex-col p-2 sm:flex-row md:mt-10">
+      <div className="relative h-80 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
         <Image
-          src={product[0]?.uri}
+          src={product?.uri}
           alt="product"
           fill={true}
           style={{ objectFit: "cover" }}
@@ -111,15 +112,15 @@ const Product = () => {
       <div className="mt-10 flex flex-col gap-8 sm:mt-0 sm:ml-8">
         <div className="flex flex-col">
           <span className="mb-3 text-xl font-semibold capitalize md:text-2xl">
-            {product[0]?.name}
+            {product?.name}
           </span>
-          <span className="text-green-600">&#8377; {product[0]?.price}</span>
+          <span className="text-green-600">&#8377; {product?.price}</span>
         </div>
 
         <div className="flex flex-col gap-2">
           <span className="capitalize text-gray-500">select size</span>
           <div className="flex flex-wrap gap-2">
-            {product[0]?.sizes.map((size: number) => (
+            {product?.sizes?.map((size: number) => (
               <span
                 className="relative flex h-10 w-16 items-center hover:bg-gray-100"
                 onClick={() => {
@@ -129,12 +130,12 @@ const Product = () => {
               >
                 <input
                   type="radio"
-                  id={product[0]?.uri}
+                  id={product?.uri}
                   name="size"
                   className="peer absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer opacity-0"
                 />
                 <label
-                  htmlFor={product[0]?.uri}
+                  htmlFor={product?.uri}
                   className="h-full w-full cursor-pointer border p-2 text-center text-sm uppercase peer-checked:bg-black peer-checked:text-white"
                 >
                   us {size}
@@ -152,8 +153,8 @@ const Product = () => {
         <div className="mt-4 flex h-fit w-fit items-center gap-6 capitalize">
           {isProductSizeSelected ? (
             <span
-              onClick={() => handleAddToCart()}
-              className="w-fit cursor-pointer bg-black px-6 py-3 text-white transition-all duration-300 ease-in-out hover:opacity-80 active:scale-95"
+              onClick={handleAddToCart}
+              className="w-fit cursor-pointer select-none bg-black px-6 py-3 text-white hover:opacity-80 active:scale-95"
             >
               add to cart
             </span>

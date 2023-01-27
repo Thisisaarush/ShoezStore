@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useQuery } from "@apollo/client";
+import Link from "next/link";
 
 // graphql queries
 import { GET_RECOMMENDED } from "@utils/graphql";
@@ -20,7 +21,8 @@ export const Recommended = () => {
   return (
     <div className="m-auto mb-10 flex max-w-5xl flex-wrap items-center justify-center gap-4 py-10">
       {data?.recommended.map((product: TProduct) => (
-        <div
+        <Link
+          href={`/product/${product?.id}`}
           className="flex cursor-pointer flex-col items-center justify-center bg-white p-2 text-sm shadow-md hover:opacity-90 md:text-base"
           key={product?.uri}
         >
@@ -35,7 +37,7 @@ export const Recommended = () => {
             />
           </div>
           <p>{product?.name}</p>
-        </div>
+        </Link>
       ))}
     </div>
   );

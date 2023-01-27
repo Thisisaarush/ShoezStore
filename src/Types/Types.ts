@@ -32,6 +32,8 @@ export interface TCartStore {
   currentProductSize: number;
   setCurrentProductSize: (input: number) => void;
   setNumberOfProducts: (product: TCartItem) => void;
+  deleteNumberOfProducts: (product: TCartItem) => void;
+  removeProduct: (product: TCartItem, cartItems: TCartItem[]) => void;
   setCartItems: (input: TCartItem) => void;
   replaceCartItems: (input: TCartItem[]) => void;
 }

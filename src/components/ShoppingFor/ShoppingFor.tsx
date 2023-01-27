@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // images
 import men from "@images/men.png";
@@ -14,18 +15,18 @@ export const ShoppingFor = () => {
       </span>
 
       <div className="flex flex-col items-center gap-4 px-2 sm:flex-row lg:px-0">
-        <div className="cursor-pointer hover:opacity-90">
+        <Link href="/men" className="cursor-pointer hover:opacity-90">
           <Image quality={50} src={men} alt="men" />
           <span className="text-sm sm:text-base">Men's</span>
-        </div>
-        <div className="cursor-pointer hover:opacity-90">
+        </Link>
+        <Link href="/women" className="cursor-pointer hover:opacity-90">
           <Image quality={50} src={women} alt="women" />
           <span className="text-sm sm:text-base">women's</span>
-        </div>
-        <div className="cursor-pointer hover:opacity-90">
+        </Link>
+        <Link href="/kids" className="cursor-pointer hover:opacity-90">
           <Image quality={50} src={kids} alt="kids" />
           <span className="text-sm sm:text-base">kids'</span>
-        </div>
+        </Link>
       </div>
     </div>
   );

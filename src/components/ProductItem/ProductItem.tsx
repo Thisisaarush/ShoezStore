@@ -9,7 +9,7 @@ type TProductItem = (props: { product: TProduct }) => JSX.Element;
 export const ProductItem: TProductItem = ({ product }) => {
   return (
     <Link
-      href={`/product/${product.id}`}
+      href={`/product/${product?.id}`}
       className="relative flex w-44 cursor-pointer flex-col items-start justify-center  bg-white py-2 text-sm hover:opacity-90 sm:w-56 md:text-base"
       key={product?.uri}
     >

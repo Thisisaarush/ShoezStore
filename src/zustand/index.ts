@@ -33,6 +33,19 @@ export const useCartStore = create<TCartStore>()(
             cartItems: [...state.cartItems],
           }));
         },
+        deleteNumberOfProducts: (product) => {
+          product.numberOfItems -= 1;
+          set((state: any) => ({
+            cartItems: [...state.cartItems],
+          }));
+        },
+        removeProduct: (product, cartItems) => {
+          const index = cartItems.indexOf(product);
+          cartItems.splice(index, 1);
+          set((state: any) => ({
+            cartItems: [...state.cartItems],
+          }));
+        },
         setCartItems: (input) =>
           set((state: any) => ({
             cartItems: [...state?.cartItems, input],
