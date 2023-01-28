@@ -16,8 +16,10 @@ import { Menu, Search, Profile } from "@components";
 // utils
 import { SlideDownAnimation } from "@utils/animations";
 import Link from "next/link";
+import { useCartStore } from "@zustand";
 
 export const Navbar: React.FC = () => {
+  const cartItems = useCartStore((state) => state.cartItems);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
@@ -84,9 +86,12 @@ export const Navbar: React.FC = () => {
         </div>
         <Link
           href="/cart"
-          className="flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100"
+          className="relative flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100"
         >
           <Image src={cart} alt="cart" />
+          <span className="absolute right-6 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm text-white sm:right-8 md:right-10">
+            {cartItems.length}
+          </span>
         </Link>
       </div>
 

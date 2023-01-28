@@ -2,9 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useCartStore, useLoginStore } from "@zustand";
 import {
+  CREATE_RAZORPAY_ORDERID,
   GET_CATEGORIES,
   GET_HERO_SLIDES,
   GET_RECOMMENDED,
@@ -35,6 +36,8 @@ const Cart = () => {
     error: e3,
   } = useQuery(GET_RECOMMENDED);
   const { data: TrendingData, loading: l4, error: e4 } = useQuery(GET_TRENDING);
+  const [CreateRazorpayOrderId, { loading: l5, error: e5, data: OrderData }] =
+    useMutation(CREATE_RAZORPAY_ORDERID);
 
   // filtering cart items
   const cartItemsFilteredData: TProduct[] =
@@ -59,9 +62,62 @@ const Cart = () => {
     totalPrice += item?.price * cartItems[idx]?.numberOfItems;
   });
 
+  // loading razor pay checkout src
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  // handle checkout
+  const handleCheckout = async () => {
+    await initializeRazorpay();
+    await CreateRazorpayOrderId({
+      variables: { order: { amount: totalPrice * 100 } },
+    });
+
+    const options = {
+      name: "Shoez Store",
+      key: process.env.RAZORPAY_ID,
+      order_id: OrderData?.createRazorpayOrderId?.orderId,
+      amount: (totalPrice * 100)?.toString(),
+      currency: "INR",
+      description: "These are Test Payments!",
+      // handler: (response: any) => {
+      //   console.log(response.razorpay_payment_id);
+      //   console.log(response.razorpay_order_id);
+      //   console.log(response.razorpay_signature);
+      // },
+      callback_url: "http://localhost:3000/",
+      prefill: {
+        name: "",
+        email: "",
+        contact: "",
+      },
+    };
+
+    try {
+      // @ts-ignore
+      const razr = new window.Razorpay(options);
+      razr.open();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // loading and error states
-  if (l1 || l2 || l3 || l4) <Loading />;
-  if (e1 || e2 || e3 || e4) <Error error={e1 || e2 || e3 || e4} />;
+  if (l1 || l2 || l3 || l4 || l5) <Loading />;
+  if (e1 || e2 || e3 || e4 || e5) <Error error={e1 || e2 || e3 || e4} />;
 
   return (
     <div className="m-auto mt-10 max-w-5xl px-2 sm:px-4">
@@ -73,7 +129,7 @@ const Cart = () => {
           <div className="md:flex md:justify-between">
             <div className="flex flex-col gap-8 md:w-3/5">
               {cartItemsFilteredData?.map((item, idx) => (
-                <CartItem item={item} cartItem={cartItems[idx]} />
+                <CartItem item={item} cartItem={cartItems[idx]} key={idx} />
               ))}
             </div>
 
@@ -95,9 +151,22 @@ const Cart = () => {
                 <span className="font-medium">&#8377; {totalPrice}</span>
               </div>
               {isUserLoggedIn ? (
-                <span className="mt-8 w-fit cursor-pointer select-none rounded-md bg-black px-6 py-2 text-white hover:bg-gray-800 active:scale-95">
-                  checkout
-                </span>
+                <div className="flex flex-col gap-4">
+                  <span
+                    onClick={() => handleCheckout()}
+                    className="mt-8 w-fit cursor-pointer select-none rounded-md bg-black px-6 py-2 text-white hover:bg-gray-800 active:scale-95"
+                  >
+                    checkout
+                  </span>
+                  <ol className="flex flex-col justify-center gap-2 text-sm normal-case text-pink-600">
+                    <li className="mb-1 font-medium">
+                      Try using one of these test ids on checkout :
+                    </li>
+                    <li>1. UPI : success@razorpay | failure@razorpay</li>
+                    <li>2. Mastercard : 5267 3181 8797 5449</li>
+                    <li>3. Visa : 4111 1111 1111 1111</li>
+                  </ol>
+                </div>
               ) : (
                 <div className="flex flex-col gap-2">
                   <span className="mt-8 w-fit select-none rounded-md bg-gray-300 px-6 py-2 text-white">

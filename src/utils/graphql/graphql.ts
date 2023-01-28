@@ -112,3 +112,13 @@ export const UPDATE_USER_CART_ITEMS = gql`
     }
   }
 `;
+
+export const CREATE_RAZORPAY_ORDERID = gql`
+  mutation CreateRazorpayOrderId($order: IOrder) {
+    createRazorpayOrderId(order: $order) {
+      message
+      orderId
+      success
+    }
+  }
+`;

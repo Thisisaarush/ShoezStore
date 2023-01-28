@@ -127,6 +127,7 @@ const Product = () => {
                   setCurrentProductSize(size);
                   setIsProductSizeSelected(true);
                 }}
+                key={size}
               >
                 <input
                   type="radio"
@@ -150,7 +151,7 @@ const Product = () => {
           )}
         </div>
 
-        <div className="mt-4 flex h-fit w-fit items-center gap-6 capitalize">
+        <div className="mt-4 flex h-fit w-fit items-baseline gap-6 capitalize">
           {isProductSizeSelected ? (
             <span
               onClick={handleAddToCart}
