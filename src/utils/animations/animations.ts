@@ -8,10 +8,10 @@ export const SlideDownAnimation = {
 
 export const CarouselAnimation = {
   initial: (direction: number) => {
-    return { x: direction > 0 ? "100%" : "-100%", opacity: 0 };
+    return { x: direction > 0 ? "100%" : "-100%" };
   },
-  animate: { x: 0, opacity: 1 },
+  animate: { x: 0 },
   exit: (direction: number) => {
-    return { x: direction < 0 ? "100%" : "-100%", opacity: 0 };
+    return { x: direction < 0 ? "100%" : "-100%" };
   },
 };
