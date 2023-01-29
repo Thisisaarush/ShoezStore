@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
@@ -8,16 +9,38 @@ export const Footer = () => {
         <span className="font-orbitron text-3xl font-semibold">cool</span>
       </div>
 
-      <div className="flex items-center justify-center gap-8">
-        <span className="hidden cursor-pointer sm:block">github &#8689;</span>
-        <span className="hidden cursor-pointer sm:block">linkedin &#8689;</span>
+      <div className="flex items-center justify-center gap-8 transition-transform duration-300 ease-in-out">
+        <Link
+          href="https://github.com/Thisisaarush"
+          target="_blank"
+          className="hidden cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1 sm:block"
+        >
+          github &#8689;
+        </Link>
+        <Link
+          href="https://www.linkedin.com/in/thisisaarush/"
+          target="_blank"
+          className="hidden cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1 sm:block"
+        >
+          linkedin &#8689;
+        </Link>
         <span className="font-orbitron text-lg font-semibold uppercase md:text-xl">
           shoez store
         </span>
-        <span className="hidden cursor-pointer sm:block">twitter &#8689;</span>
-        <span className="hidden cursor-pointer sm:block">
+        <Link
+          href="https://twitter.com/Thisisaarush"
+          target="_blank"
+          className="hidden cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1 sm:block"
+        >
+          twitter &#8689;
+        </Link>
+        <Link
+          href="https://www.instagram.com/thisisaarush/"
+          target="_blank"
+          className="hidden cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1 sm:block"
+        >
           instagram &#8689;
-        </span>
+        </Link>
       </div>
     </div>
   );
