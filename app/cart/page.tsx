@@ -98,7 +98,7 @@ const Cart = () => {
       //   console.log(response.razorpay_order_id);
       //   console.log(response.razorpay_signature);
       // },
-      callback_url: "http://localhost:3000/",
+      callback_url: "/",
       prefill: {
         name: "",
         email: "",
