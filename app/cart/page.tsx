@@ -98,7 +98,7 @@ const Cart = () => {
       //   console.log(response.razorpay_order_id);
       //   console.log(response.razorpay_signature);
       // },
-      callback_url: "/",
+      callback_url: "https://shoez-store.vercel.app/",
       prefill: {
         name: "",
         email: "",
