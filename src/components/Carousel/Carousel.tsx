@@ -73,27 +73,27 @@ export const Carousel = () => {
     <div className="relative mx-auto my-0 h-max max-w-5xl">
       <div className="relative overflow-hidden">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-          <Link href={`/product/${data?.heroSlider[heroImageNumber]?.id}`}>
-            <motion.div
-              key={heroImageNumber}
-              custom={direction}
-              variants={CarouselAnimation}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
-              onDragEnd={(e, { offset }) => {
-                if (offset.x < 0) paginate(1);
-                else paginate(-1);
-              }}
-              transition={{
-                ease: "easeInOut",
-                duration: 1,
-              }}
-              className="relative flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
-            >
+          <motion.div
+            key={heroImageNumber}
+            custom={direction}
+            variants={CarouselAnimation}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset }) => {
+              if (offset.x < 0) paginate(1);
+              else paginate(-1);
+            }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+            }}
+            className="relative flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
+          >
+            <Link href={`/product/${data?.heroSlider[heroImageNumber]?.id}`}>
               <Image
                 src={data?.heroSlider[heroImageNumber]?.uri}
                 alt="Carousel"
@@ -102,8 +102,8 @@ export const Carousel = () => {
                 className="hover:opacity-90"
                 sizes="(max-width: 1024px) 100vw"
               />
-            </motion.div>
-          </Link>
+            </Link>
+          </motion.div>
         </AnimatePresence>
 
         <Image
