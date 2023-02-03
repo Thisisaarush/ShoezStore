@@ -88,17 +88,17 @@ const Cart = () => {
 
     const options = {
       name: "Shoez Store",
-      key: process.env.RAZORPAY_ID,
+      key: process.env.NEXT_PUBLIC_RAZORPAY_ID,
       order_id: OrderData?.createRazorpayOrderId?.orderId,
       amount: (totalPrice * 100)?.toString(),
       currency: "INR",
       description: "These are Test Payments!",
-      // handler: (response: any) => {
-      //   console.log(response.razorpay_payment_id);
-      //   console.log(response.razorpay_order_id);
-      //   console.log(response.razorpay_signature);
-      // },
-      callback_url: "https://shoez-store.vercel.app/",
+      handler: (response: any) => {
+        console.log(response);
+        console.log(response.razorpay_payment_id);
+        console.log(response.razorpay_order_id);
+        console.log(response.razorpay_signature);
+      },
       prefill: {
         name: "",
         email: "",
@@ -109,7 +109,7 @@ const Cart = () => {
     try {
       // @ts-ignore
       const razr = new window.Razorpay(options);
-      razr.open();
+      await razr.open();
     } catch (error) {
       console.log(error);
     }
