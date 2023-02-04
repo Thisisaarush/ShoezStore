@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { TProduct, TCartItem } from "@types";
+import { TProduct, TItem } from "@types";
 import Image from "next/image";
 import { useCartStore } from "@zustand";
 
 // types
 type TCartItemComp = (props: {
   item: TProduct;
-  cartItem: TCartItem;
+  cartItem: TItem;
 }) => JSX.Element;
 
 export const CartItem: TCartItemComp = ({ item, cartItem }) => {
