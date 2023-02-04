@@ -18,7 +18,9 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
   return (
     <menu className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-between py-4 px-8 font-orbitron font-medium uppercase tracking-wider sm:py-8 sm:text-xl">
-        <div>Shoez store</div>
+        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+          Shoez store
+        </Link>
         <div
           onClick={() => setIsMenuOpen(false)}
           className="w-auto cursor-pointer p-1"
@@ -103,11 +105,6 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
           />
         </ol>
       </div>
-
-      <span
-        onClick={() => setIsMenuOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black opacity-30"
-      />
     </menu>
   );
 };

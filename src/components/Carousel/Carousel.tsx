@@ -91,9 +91,11 @@ export const Carousel = () => {
               ease: "easeInOut",
               duration: 1,
             }}
-            className="relative flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
           >
-            <Link href={`/product/${data?.heroSlider[heroImageNumber]?.id}`}>
+            <Link
+              href={`/product/${data?.heroSlider[heroImageNumber]?.id}`}
+              className="relative flex h-[300px] cursor-pointer select-none overflow-hidden sm:h-[400px] md:h-[500px] lg:h-[600px]"
+            >
               <Image
                 src={data?.heroSlider[heroImageNumber]?.uri}
                 alt="Carousel"

@@ -26,11 +26,23 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="relative flex w-screen flex-col items-center justify-center">
+      <span
+        onClick={() => {
+          setIsMenuOpen(false);
+          setIsProfileOpen(false);
+          setIsSearchOpen(false);
+        }}
+        className={`fixed inset-0 z-10 w-screen bg-black transition-opacity duration-200 ease-in-out ${
+          isMenuOpen || isProfileOpen || isSearchOpen
+            ? "block opacity-40"
+            : "hidden"
+        }`}
+      />
       <AnimatePresence>
-        {isMenuOpen ? (
+        {isMenuOpen && (
           <motion.div
             key="menu"
-            className="absolute top-0 z-10 h-screen w-screen"
+            className="absolute top-0 z-20 w-screen"
             {...SlideDownAnimation}
           >
             <Menu
@@ -38,25 +50,25 @@ export const Navbar: React.FC = () => {
               setIsProfileOpen={setIsProfileOpen}
             />
           </motion.div>
-        ) : null}
-        {isSearchOpen ? (
+        )}
+        {isSearchOpen && (
           <motion.div
             key="search"
-            className="absolute top-0 z-10 h-screen w-screen"
+            className="absolute top-0 z-20 w-screen"
             {...SlideDownAnimation}
           >
-            <Search setIsSearchOpen={setIsSearchOpen} />
+            <Search />
           </motion.div>
-        ) : null}
-        {isProfileOpen ? (
+        )}
+        {isProfileOpen && (
           <motion.div
             key="profile"
-            className="absolute top-0 z-10 h-screen w-screen"
+            className="absolute top-0 z-20 w-screen"
             {...SlideDownAnimation}
           >
             <Profile setIsProfileOpen={setIsProfileOpen} />
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
 
       <div className="flex w-full max-w-5xl content-center items-center justify-between border-b sm:border-none">

@@ -64,11 +64,6 @@ export const Profile: TProfile = ({ setIsProfileOpen }) => {
           )}
         </ol>
       </div>
-
-      <span
-        onClick={() => setIsProfileOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black opacity-30"
-      />
     </div>
   );
 };

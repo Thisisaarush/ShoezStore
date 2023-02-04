@@ -1,12 +1,7 @@
 import React from "react";
 import { SearchBar } from "./SearchBar/SearchBar";
 
-// types
-type TSearch = (props: {
-  setIsSearchOpen: (isSearchOpen: boolean) => void;
-}) => JSX.Element;
-
-export const Search: TSearch = ({ setIsSearchOpen }) => {
+export const Search = () => {
   return (
     <div className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-start py-4 px-8 sm:py-8">
@@ -29,11 +24,6 @@ export const Search: TSearch = ({ setIsSearchOpen }) => {
           </div>
         </div>
       </div>
-
-      <span
-        onClick={() => setIsSearchOpen(false)}
-        className="absolute inset-0 -z-20 h-screen w-full bg-gradient-to-b  from-black opacity-30"
-      />
     </div>
   );
 };
