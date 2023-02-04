@@ -7,7 +7,7 @@ export default function Head() {
         name="description"
         content="Brand Shoes at Best Price - Shoez Store"
       />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.svg" />
     </>
   );
 }

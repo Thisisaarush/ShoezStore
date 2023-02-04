@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 
@@ -20,11 +20,7 @@ import { Loading, Error } from "@components";
 // types
 import { TProduct } from "@types";
 
-//utils
-import { getImageAvgColor } from "@utils/getImageAvgColor";
-
 export const Carousel = () => {
-  const gradientRef = useRef<HTMLDivElement>(null);
   let [[heroImageNumber, direction], setHeroImage] = useState([0, 0]);
   const { loading, error, data } = useQuery(GET_HERO_SLIDES);
   let prevIdx = heroImageNumber;
@@ -59,15 +55,6 @@ export const Carousel = () => {
   // loading & error states from graphql
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
-
-  // ? disabling gradient for now - average color of hero slides for gradient
-  // getImageAvgColor(data?.heroSlider[heroImageNumber].uri)
-  //   .then((res) => {
-  //     if (gradientRef.current) {
-  //       gradientRef.current.style.background = `linear-gradient(to bottom, ${res.hex}, transparent)`;
-  //     }
-  //   })
-  //   .catch((e) => console.log(e));
 
   return (
     <div className="relative mx-auto my-0 h-max max-w-5xl">
@@ -140,10 +127,6 @@ export const Carousel = () => {
           ))}
         </ul>
       </div>
-      {/* <div
-        className="max-w-5x absolute -z-50 h-screen w-full"
-        ref={gradientRef}
-      ></div> */}
     </div>
   );
 };

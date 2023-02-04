@@ -45,6 +45,7 @@ export const Favorite: TFavoriteComp = ({ productId }) => {
                 alt="redheart"
                 className="absolute"
                 onClick={handleFavorites}
+                key={itemId}
               />
             );
           }

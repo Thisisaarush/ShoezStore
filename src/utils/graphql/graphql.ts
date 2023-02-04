@@ -1,9 +1,17 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  gql,
+} from "@apollo/client";
 
-// apollo client
 export const client = new ApolloClient({
-  // uri: "http://localhost:4000/",
-  uri: "https://shoezstore.up.railway.app/",
+  ssrMode: true,
+  link: createHttpLink({
+    // uri: "http://localhost:4000/",
+    uri: "https://shoezstore.up.railway.app/",
+    credentials: "same-origin",
+  }),
   cache: new InMemoryCache(),
 });
 
