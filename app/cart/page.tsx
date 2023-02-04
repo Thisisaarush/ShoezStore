@@ -121,7 +121,7 @@ const Cart = () => {
   if (e1 || e2 || e3 || e4 || e5) <Error error={e1 || e2 || e3 || e4} />;
 
   return (
-    <div className="m-auto mt-10 max-w-5xl px-2 sm:px-4">
+    <div className="m-auto mt-10 min-h-[60vh] max-w-5xl px-2 sm:px-4">
       <div className="flex flex-col gap-8">
         <span className="mb-4 text-xl font-semibold capitalize sm:text-2xl">
           cart
