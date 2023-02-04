@@ -12,6 +12,14 @@ export type TProduct = {
 };
 
 // store types
+
+export type TItem = {
+  __typename?: string;
+  itemId: string;
+  itemSize: number;
+  numberOfItems: number;
+};
+
 export interface TLoginStore {
   userDetails: { name?: string; email?: string };
   isUserLoggedIn: boolean;
@@ -20,20 +28,19 @@ export interface TLoginStore {
   setUserLoggedIn: (input: boolean) => void;
 }
 
-export type TCartItem = {
-  __typename?: string;
-  itemId: string;
-  itemSize: number;
-  numberOfItems: number;
-};
-
 export interface TCartStore {
-  cartItems: TCartItem[];
+  cartItems: TItem[];
   currentProductSize: number;
   setCurrentProductSize: (input: number) => void;
-  setNumberOfProducts: (product: TCartItem) => void;
-  deleteNumberOfProducts: (product: TCartItem) => void;
-  removeProduct: (product: TCartItem, cartItems: TCartItem[]) => void;
-  setCartItems: (input: TCartItem) => void;
-  replaceCartItems: (input: TCartItem[]) => void;
+  setNumberOfProducts: (product: TItem) => void;
+  deleteNumberOfProducts: (product: TItem) => void;
+  removeProduct: (product: TItem, cartItems: TItem[]) => void;
+  setCartItems: (input: TItem) => void;
+  replaceCartItems: (input: TItem[]) => void;
+}
+
+export interface TFavoriteStore {
+  favoriteItems: string[];
+  addToFavorites: (itemId: string) => void;
+  removeFromFavorites: (ItemId: string, favoriteItems: string[]) => void;
 }

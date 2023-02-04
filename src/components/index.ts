@@ -15,3 +15,4 @@ export * from "./ShoppingFor/ShoppingFor";
 export * from "./Footer/Footer";
 export * from "./ProductItem/ProductItem";
 export * from "./CartItem/CartItem";
+export * from "./Favorite/Favorite";

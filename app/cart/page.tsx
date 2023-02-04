@@ -183,7 +183,7 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="flex min-h-screen flex-col items-center gap-4 capitalize">
+          <div className="flex min-h-[50vh] flex-col items-center gap-4 capitalize">
             <span className="text-gray-500">
               There are no products in the cart
             </span>

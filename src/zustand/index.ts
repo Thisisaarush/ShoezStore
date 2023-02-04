@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { TCartStore, TLoginStore } from "@types";
+import { TCartStore, TFavoriteStore, TLoginStore } from "@types";
 
 export const useLoginStore = create<TLoginStore>()(
   devtools(
@@ -29,25 +29,25 @@ export const useCartStore = create<TCartStore>()(
         setCurrentProductSize: (input) => set({ currentProductSize: input }),
         setNumberOfProducts: (product) => {
           product.numberOfItems += 1;
-          set((state: any) => ({
+          set((state) => ({
             cartItems: [...state.cartItems],
           }));
         },
         deleteNumberOfProducts: (product) => {
           product.numberOfItems -= 1;
-          set((state: any) => ({
+          set((state) => ({
             cartItems: [...state.cartItems],
           }));
         },
         removeProduct: (product, cartItems) => {
           const index = cartItems.indexOf(product);
           cartItems.splice(index, 1);
-          set((state: any) => ({
+          set((state) => ({
             cartItems: [...state.cartItems],
           }));
         },
         setCartItems: (input) =>
-          set((state: any) => ({
+          set((state) => ({
             cartItems: [...state?.cartItems, input],
           })),
         replaceCartItems: (input) =>
@@ -57,6 +57,30 @@ export const useCartStore = create<TCartStore>()(
       }),
       {
         name: "cartItems",
+      }
+    )
+  )
+);
+
+export const useFavoriteStore = create<TFavoriteStore>()(
+  devtools(
+    persist(
+      (set) => ({
+        favoriteItems: [],
+        addToFavorites: (itemId) =>
+          set((state: any) => ({
+            favoriteItems: [...state.favoriteItems, itemId],
+          })),
+        removeFromFavorites: (itemId, favoriteItems) => {
+          const index = favoriteItems.indexOf(itemId);
+          favoriteItems.splice(index, 1);
+          set((state) => ({
+            favoriteItems: [...state.favoriteItems],
+          }));
+        },
+      }),
+      {
+        name: "favoriteItems",
       }
     )
   )
