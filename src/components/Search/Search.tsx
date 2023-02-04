@@ -1,7 +1,11 @@
+import Link from "next/link";
 import React from "react";
 import { SearchBar } from "./SearchBar/SearchBar";
 
-export const Search = () => {
+// types
+type TSearchComp = (props: { setIsSearchOpen: Function }) => JSX.Element;
+
+export const Search: TSearchComp = ({ setIsSearchOpen }) => {
   return (
     <div className="relative flex w-full flex-col items-center bg-white shadow-md">
       <div className="flex w-full max-w-3xl items-center justify-start py-4 px-8 sm:py-8">
@@ -17,10 +21,25 @@ export const Search = () => {
       <div className="z-20 flex w-full items-center justify-center border-t">
         <div className="flex w-full max-w-3xl justify-between py-4 px-8">
           <span className="text-lg text-gray-500">Popular Searches</span>
-          <div className="mr-20 flex w-1/2 items-center justify-evenly">
-            <span>Air Zoom</span>
-            <span>Jordan</span>
-            <span>White Sneakers</span>
+          <div className="mr-20 flex w-1/2 items-center justify-evenly capitalize">
+            <Link
+              onClick={() => setIsSearchOpen(false)}
+              href="/search?q=nike air"
+            >
+              Nike Air
+            </Link>
+            <Link
+              onClick={() => setIsSearchOpen(false)}
+              href="/search?q=adidas"
+            >
+              adidas
+            </Link>
+            <Link
+              onClick={() => setIsSearchOpen(false)}
+              href="/search?q=sneakers"
+            >
+              Sneakers
+            </Link>
           </div>
         </div>
       </div>

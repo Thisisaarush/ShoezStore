@@ -32,7 +32,7 @@ export const ProductItem: TProductItem = ({ product }) => {
           <p className="font-medium">&#8377; {product?.price}</p>
         </span>
       </Link>
-      <Favorite productId={product.id} />
+      <Favorite productId={product?.id} />
     </div>
   );
 };

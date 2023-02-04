@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
             className="absolute top-0 z-20 w-screen"
             {...SlideDownAnimation}
           >
-            <Search />
+            <Search setIsSearchOpen={setIsSearchOpen} />
           </motion.div>
         )}
         {isProfileOpen && (
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
           href="/"
           className="relative flex h-[50px] flex-auto cursor-pointer items-center justify-center font-orbitron font-medium uppercase tracking-wide transition-all duration-300 ease-in hover:tracking-widest hover:text-white hover:before:absolute hover:before:inset-0 hover:before:bg-black"
         >
-          <span className="relative">shoez store</span>
+          <p className="relative">shoez store</p>
         </Link>
         <div
           onClick={() => setIsProfileOpen(true)}
@@ -101,9 +101,9 @@ export const Navbar: React.FC = () => {
           className="relative flex h-[50px] max-w-[130px] flex-auto cursor-pointer items-center justify-center border-l transition-colors duration-300 ease-in-out hover:bg-gray-100"
         >
           <Image src={cart} alt="cart" />
-          <span className="absolute right-6 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm text-white sm:right-8 md:right-10">
+          <p className="absolute right-6 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm text-white sm:right-8 md:right-10">
             {cartItems.length}
-          </span>
+          </p>
         </Link>
       </div>
 
@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
           href="/justarrived"
           className="relative mx-4 inline-block cursor-pointer px-2 capitalize before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-yellow-300 hover:before:bg-yellow-400"
         >
-          <span className="relative">Just Arrived</span>
+          <p className="relative">Just Arrived</p>
         </Link>
         <Link
           href="/men"
@@ -136,7 +136,7 @@ export const Navbar: React.FC = () => {
           href="/sale"
           className="relative mx-4 cursor-pointer px-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 hover:before:bg-red-600"
         >
-          <span className="relative">Sale</span>
+          <p className="relative">Sale</p>
         </Link>
       </div>
     </nav>

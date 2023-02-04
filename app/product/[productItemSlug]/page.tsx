@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,9 +14,11 @@ import {
   GET_TRENDING,
 } from "@utils/graphql";
 import { useCartStore } from "@zustand";
+import { AlsoLike } from "src/components/AlsoLike/AlsoLike";
 
 const Product = () => {
   const [isProductSizeSelected, setIsProductSizeSelected] = useState(false);
+  const addedToCartRef = useRef<HTMLSpanElement>(null);
   const pathName: string = usePathname() || "";
   const pathNameArray = pathName.split(/\//g);
   const currentProductId = pathNameArray[pathNameArray.length - 1];
@@ -72,6 +74,8 @@ const Product = () => {
 
   // handle add to cart
   const handleAddToCart = () => {
+    if (addedToCartRef.current) addedToCartRef.current.style.display = "block";
+
     if (cartItems.length > 0) {
       const alredyExistProduct = cartItems.find(
         ({ itemId, itemSize }) =>
@@ -97,78 +101,90 @@ const Product = () => {
   };
 
   return (
-    <div className="m-auto flex min-h-screen max-w-5xl flex-col p-2 sm:flex-row md:mt-10">
-      <div className="relative h-80 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
-        <Image
-          src={product?.uri}
-          alt="product"
-          fill={true}
-          style={{ objectFit: "cover" }}
-          quality={50}
-          sizes="(max-width: 1024px) 100vw"
-        />
-      </div>
-
-      <div className="mt-10 flex flex-col gap-8 sm:mt-0 sm:ml-8">
-        <div className="flex flex-col">
-          <span className="mb-3 text-xl font-semibold capitalize md:text-2xl">
-            {product?.name}
-          </span>
-          <span className="text-green-600">&#8377; {product?.price}</span>
+    <div className="relative m-auto flex min-h-screen max-w-5xl flex-col p-2 md:mt-10">
+      <div className="flex flex-col p-2 sm:flex-row">
+        <div className="relative h-80 sm:h-[416px] sm:w-[300px] md:h-[550px] md:w-[480px] lg:w-[480px]">
+          <Image
+            src={product?.uri}
+            alt="product"
+            fill={true}
+            style={{ objectFit: "cover" }}
+            quality={50}
+            sizes="(max-width: 1024px) 100vw"
+          />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <span className="capitalize text-gray-500">select size</span>
-          <div className="flex flex-wrap gap-2">
-            {product?.sizes?.map((size: number) => (
-              <span
-                className="relative flex h-10 w-16 items-center hover:bg-gray-100"
-                onClick={() => {
-                  setCurrentProductSize(size);
-                  setIsProductSizeSelected(true);
-                }}
-                key={size}
-              >
-                <input
-                  type="radio"
-                  id={product?.uri}
-                  name="size"
-                  className="peer absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer opacity-0"
-                />
-                <label
-                  htmlFor={product?.uri}
-                  className="h-full w-full cursor-pointer border p-2 text-center text-sm uppercase peer-checked:bg-black peer-checked:text-white"
-                >
-                  us {size}
-                </label>
-              </span>
-            ))}
+        <div className="mt-10 flex flex-col gap-8 sm:mt-0 sm:ml-8">
+          <div className="flex flex-col">
+            <span className="mb-3 text-xl font-semibold capitalize md:text-2xl">
+              {product?.name}
+            </span>
+            <span className="text-green-600">&#8377; {product?.price}</span>
           </div>
-          {!isProductSizeSelected && (
-            <span className="text-sm text-pink-600">
-              please select your shoes size*
-            </span>
-          )}
+
+          <div className="flex flex-col gap-2">
+            <span className="capitalize text-gray-500">select size</span>
+            <div className="flex flex-wrap gap-2">
+              {product?.sizes?.map((size: number) => (
+                <span
+                  className="relative flex h-10 w-16 items-center hover:bg-gray-100"
+                  onClick={() => {
+                    setCurrentProductSize(size);
+                    setIsProductSizeSelected(true);
+                    if (addedToCartRef.current)
+                      addedToCartRef.current.style.display = "none";
+                  }}
+                  key={size}
+                >
+                  <input
+                    type="radio"
+                    id={product?.uri}
+                    name="size"
+                    className="peer absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer opacity-0"
+                  />
+                  <label
+                    htmlFor={product?.uri}
+                    className="h-full w-full cursor-pointer border p-2 text-center text-sm uppercase peer-checked:bg-black peer-checked:text-white"
+                  >
+                    us {size}
+                  </label>
+                </span>
+              ))}
+            </div>
+            {!isProductSizeSelected && (
+              <span className="text-sm text-pink-600">
+                please select your shoes size*
+              </span>
+            )}
+          </div>
+
+          <div className="mt-4 flex h-fit w-fit items-baseline gap-6 capitalize">
+            {isProductSizeSelected ? (
+              <span
+                onClick={handleAddToCart}
+                className="w-fit cursor-pointer select-none bg-black px-6 py-3 text-white hover:opacity-80 active:scale-95"
+              >
+                add to cart
+              </span>
+            ) : (
+              <span className="w-fit bg-gray-300 px-6 py-3 text-white">
+                add to cart
+              </span>
+            )}
+            <Link href="/" className="h-fit w-fit text-sm text-gray-500">
+              explore more &#8690;
+            </Link>
+          </div>
         </div>
 
-        <div className="mt-4 flex h-fit w-fit items-baseline gap-6 capitalize">
-          {isProductSizeSelected ? (
-            <span
-              onClick={handleAddToCart}
-              className="w-fit cursor-pointer select-none bg-black px-6 py-3 text-white hover:opacity-80 active:scale-95"
-            >
-              add to cart
-            </span>
-          ) : (
-            <span className="w-fit bg-gray-300 px-6 py-3 text-white">
-              add to cart
-            </span>
-          )}
-          <Link href="/" className="h-fit w-fit text-sm text-gray-500">
-            explore more &#8690;
-          </Link>
-        </div>
+        <span
+          ref={addedToCartRef}
+          className="absolute right-1 top-1 hidden h-fit w-fit animate-bounce rounded-md bg-green-500 py-2 px-4 text-sm font-semibold capitalize text-white shadow-md before:absolute before:-top-2 before:left-1/2 before:h-4 before:w-4 before:translate-x-3/4 before:rotate-45 before:bg-green-500 sm:-top-20 sm:before:-translate-x-1/2 md:-top-28"
+        >
+          Added to Cart
+        </span>
       </div>
+      <AlsoLike />
     </div>
   );
 };

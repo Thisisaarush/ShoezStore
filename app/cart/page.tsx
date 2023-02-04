@@ -18,6 +18,7 @@ const Cart = () => {
   let totalPrice: number = 0;
   const isUserLoggedIn = useLoginStore((state) => state.isUserLoggedIn);
   const cartItems = useCartStore((state) => state.cartItems);
+  const replaceCartItems = useCartStore((state) => state.replaceCartItems);
 
   // queries
   const {
@@ -94,10 +95,10 @@ const Cart = () => {
       currency: "INR",
       description: "These are Test Payments!",
       handler: (response: any) => {
-        console.log(response);
-        console.log(response.razorpay_payment_id);
-        console.log(response.razorpay_order_id);
-        console.log(response.razorpay_signature);
+        replaceCartItems([]);
+        // console.log(response.razorpay_payment_id);
+        // console.log(response.razorpay_order_id);
+        // console.log(response.razorpay_signature);
       },
       prefill: {
         name: "",
@@ -153,12 +154,15 @@ const Cart = () => {
               {isUserLoggedIn ? (
                 <div className="flex flex-col gap-4">
                   <span
-                    onClick={() => handleCheckout()}
+                    onClick={handleCheckout}
                     className="mt-8 w-fit cursor-pointer select-none rounded-md bg-black px-6 py-2 text-white hover:bg-gray-800 active:scale-95"
                   >
                     checkout
                   </span>
                   <ol className="flex flex-col justify-center gap-2 text-sm normal-case text-pink-600">
+                    <li className="mb-1 text-orange-500">
+                      ⚠️ Transaction Limit : &#8377; 15000
+                    </li>
                     <li className="mb-1 font-medium">
                       Try using one of these test ids on checkout :
                     </li>

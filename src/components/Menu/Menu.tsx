@@ -21,12 +21,12 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
         <Link href="/" onClick={() => setIsMenuOpen(false)}>
           Shoez store
         </Link>
-        <div
+        <span
           onClick={() => setIsMenuOpen(false)}
           className="w-auto cursor-pointer p-1"
         >
           X
-        </div>
+        </span>
       </div>
 
       <div className="z-20 flex w-full items-center justify-center border-t">
@@ -39,7 +39,7 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
             }}
             className="relative inline-block w-[200px] cursor-pointer p-2 capitalize before:absolute before:inset-0 before:block before:-skew-x-12 before:bg-yellow-300 sm:hidden"
           >
-            <span className="relative">Just Arrived</span>
+            <p className="relative">Just Arrived</p>
           </Link>
           <Link
             href="/sale"
@@ -48,7 +48,7 @@ export const Menu: TMenu = ({ setIsMenuOpen, setIsProfileOpen }) => {
             }}
             className="relative w-[150px] cursor-pointer p-2 capitalize text-white before:absolute before:-inset-0.5 before:block before:-skew-x-12 before:bg-red-500 sm:hidden"
           >
-            <span className="relative">Sale</span>
+            <p className="relative">Sale</p>
           </Link>
           <li
             onClick={() => {
