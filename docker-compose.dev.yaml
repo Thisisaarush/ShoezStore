@@ -1,6 +1,6 @@
 services:
-  shoezstore-frontend:
-    container_name: shoezstore
+  frontend:
+    container_name: shoezstore-frontend
     build:
       context: ./
       dockerfile: /dev.Dockerfile

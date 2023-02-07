@@ -8,8 +8,10 @@ import {
 export const client = new ApolloClient({
   ssrMode: true,
   link: createHttpLink({
-    // uri: "http://localhost:4000/",
-    uri: "https://shoezstore.up.railway.app/",
+    uri:
+      process.env.NODE_ENV === "production"
+        ? "https://shoezstore.up.railway.app/"
+        : "http://localhost:4000/",
     credentials: "same-origin",
   }),
   cache: new InMemoryCache(),
