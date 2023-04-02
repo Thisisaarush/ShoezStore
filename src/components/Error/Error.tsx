@@ -4,7 +4,7 @@ import React from "react";
 export const Error = (props: { error?: ApolloError }) => {
   return (
     <div className="mt-10 flex items-center justify-center text-red-500">
-      Error! {props.error?.message}
+      Error! ⚠️ Server Down! 🔍 {props.error?.message}
     </div>
   );
 };
