@@ -10,7 +10,7 @@ export const client = new ApolloClient({
   link: createHttpLink({
     uri:
       process.env.NODE_ENV === "production"
-        ? "https://shoez-store-backend.onrender.com" //"https://shoezstore.up.railway.app/" Disabling Railway Server due to server issues every month end on free tier
+        ? "https://shoezstore.up.railway.app/" //"https://shoez-store-backend.onrender.com" Disabling render Server due to server issues
         : "http://localhost:4000/",
     credentials: "same-origin",
   }),
