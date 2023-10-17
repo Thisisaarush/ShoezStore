@@ -19,6 +19,7 @@ export const Loading = () => {
           fill="currentFill"
         />
       </svg>
+      <span>Please wait... Server is waking up 😴 | Deployed on RENDER free tier</span>
       <span className="sr-only">Loading...</span>
     </div>
   );
